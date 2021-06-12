@@ -27,6 +27,7 @@ public class MazeDisplayer extends Canvas {
     // wall and player images:
     StringProperty imageFileNameWall = new SimpleStringProperty();
     StringProperty imageFileNamePlayer = new SimpleStringProperty();
+    StringProperty imageFileNameSolve = new SimpleStringProperty();
     private Solution solution;
     private Camera camera = new Camera(this);
 //    private double delta = 1;
@@ -81,6 +82,14 @@ public class MazeDisplayer extends Canvas {
         this.imageFileNamePlayer.set(imageFileNamePlayer);
     }
 
+    public String getImageFileNameSolve() {
+        return imageFileNameSolve.get();
+    }
+
+
+    public void setImageFileNameSolve(String imageFileNameSolve) {
+        this.imageFileNameSolve.set(imageFileNameSolve);
+    }
     public void drawMaze(Maze maze) {
         this.maze = maze;
         this.playerCol = maze.getStartPosition().getColumnIndex();
@@ -118,13 +127,22 @@ public class MazeDisplayer extends Canvas {
         graphicsContext.setFill(Color.TURQUOISE);
         //cellHeight = cellHeight*delta;
         //cellWidth = cellWidth*delta;
+        Image solveImage = null;
+        try{
+            solveImage = new Image(new FileInputStream(getImageFileNameSolve()));
+        } catch (FileNotFoundException e) {
+            System.out.println("There is no wall image file");
+        }
         for (AState state: path) {
             MazeState mazeState = (MazeState) state;
             int rowIndex = mazeState.getPositionRow();
             int colIndex = mazeState.getPositionColumn();
             double x = colIndex * cellWidth;
             double y = rowIndex * cellHeight;
-            graphicsContext.fillRect(x, y, cellWidth, cellHeight);
+            if(solveImage == null)
+                graphicsContext.fillRect(x, y, cellWidth, cellHeight);
+            else
+                graphicsContext.drawImage(solveImage, x, y, cellWidth, cellHeight);
         }
     }
 

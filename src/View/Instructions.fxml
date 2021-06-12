@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane fx:id="borderPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-image: url(C:\Users\noabi\Downloads\Instructions\New Microsoft PowerPoint Presentation\Slide1.PNG); -fx-background-color: black; -fx-background-size: 100% 100%;" stylesheets="@firstScene.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <ImageView fitHeight="403.0" fitWidth="605.0" nodeOrientation="INHERIT" BorderPane.alignment="CENTER">
+         <image>
+            <Image url="@../../../../Downloads/Instructions/Slide1.PNG" />
+         </image>
+      </ImageView>
+   </center>
+</BorderPane>

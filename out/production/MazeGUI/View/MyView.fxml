@@ -14,15 +14,16 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <?import View.*?>
 <BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#mouseClicked" onScroll="#changeZoom" prefHeight="600.0" prefWidth="900.0" stylesheets="@MainStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
     <left>
-        <VBox prefHeight="200.0" prefWidth="178.0" spacing="5.0" BorderPane.alignment="CENTER">
+        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="178.0" spacing="5.0" BorderPane.alignment="CENTER">
             <children>
-                <GridPane prefWidth="168.0">
+                <GridPane>
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints fx:id="grid" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
@@ -34,17 +35,50 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
-                    <Label text="Maze rows:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                    <Label text="Maze columns:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                    <TextField fx:id="textField_mazeRows" text="50" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                    <TextField fx:id="textField_mazeColumns" text="50" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                    <Button fx:id="generateBtn" onAction="#generateMaze" prefHeight="25.0" prefWidth="167.0" text="Generate Maze" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-                    <Button cancelButton="true" onAction="#solveMaze" prefHeight="25.0" prefWidth="167.0" text="Solve Maze" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-                    <Label text="Player Row = " GridPane.rowIndex="5" />
-                    <Label text="Player Col = " GridPane.rowIndex="6" />
-                    <Label fx:id="playerRow" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                    <Label fx:id="playerCol" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-               <Button cancelButton="true" onAction="#clearSolution" prefHeight="25.0" prefWidth="167.0" text="Clear Solution" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                    <Label fx:id="rowLabel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Maze rows:" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                  <font>
+                     <Font name="Segoe Print" size="12.0" />
+                  </font></Label>
+                    <Label fx:id="colsLabel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="22.0" prefWidth="95.0" text="Maze columns:" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                  <font>
+                     <Font name="Segoe Print" size="11.0" />
+                  </font></Label>
+                    <TextField fx:id="textField_mazeRows" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="50" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                  <font>
+                     <Font name="Segoe Print" size="12.0" />
+                  </font></TextField>
+                    <TextField fx:id="textField_mazeColumns" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="50" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <font>
+                     <Font name="Segoe Print" size="12.0" />
+                  </font></TextField>
+                    <Button fx:id="generateBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#generateMaze" prefHeight="25.0" prefWidth="167.0" text="Generate Maze" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                  <font>
+                     <Font name="Segoe Print" size="12.0" />
+                  </font></Button>
+                    <Button fx:id="solveBtn" cancelButton="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#solveMaze" prefHeight="25.0" prefWidth="167.0" text="Solve Maze" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+                  <font>
+                     <Font name="Segoe Print" size="12.0" />
+                  </font></Button>
+                    <Label fx:id="playerRowLabel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Player Row = " GridPane.rowIndex="5">
+                  <font>
+                     <Font name="Segoe Print" size="11.0" />
+                  </font></Label>
+                    <Label fx:id="playerColLabel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Player Col = " GridPane.rowIndex="6">
+                  <font>
+                     <Font name="Segoe Print" size="11.0" />
+                  </font></Label>
+                    <Label fx:id="playerRow" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                  <font>
+                     <Font name="Segoe Print" size="12.0" />
+                  </font></Label>
+                    <Label fx:id="playerCol" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                  <font>
+                     <Font name="Segoe Print" size="12.0" />
+                  </font></Label>
+               <Button fx:id="clearBtn" cancelButton="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#clearSolution" prefHeight="25.0" prefWidth="167.0" text="Clear Solution" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+                  <font>
+                     <Font name="Segoe Print" size="12.0" />
+                  </font></Button>
                 </GridPane>
             </children>
             <padding>
@@ -79,13 +113,12 @@
                         <Menu mnemonicParsing="false" onAction="#exitGame" text="Exit" />
                         <Menu mnemonicParsing="false" text="Help">
                             <items>
-                        <MenuItem fx:id="rules" mnemonicParsing="false" onAction="#openRules" text="Game Rules" />
+                        <MenuItem fx:id="rules" mnemonicParsing="false" onAction="#openRules" text="Instructions" />
                             </items>
                         </Menu>
                   <Menu mnemonicParsing="false" text="About">
                     <items>
-                        <MenuItem fx:id="aboutProgrammers" mnemonicParsing="false" onAction="#openProgrammersData" text="Programmers" />
-                        <MenuItem fx:id="algorithms" mnemonicParsing="false" onAction="#openAboutAlgorithms" text="Algorithms" />
+                        <MenuItem fx:id="Information" mnemonicParsing="false" onAction="#openAbout" text="Information" />
                     </items>
                   </Menu>
                     </menus>
@@ -94,9 +127,9 @@
         </VBox>
     </top>
     <center>
-        <Pane BorderPane.alignment="CENTER">
+        <Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
             <children>
-                <MazeDisplayer fx:id="mazeDisplayer" height="500.0" imageFileNamePlayer="./resources/images/rick.png" imageFileNameWall="./resources/images/wall7.png" onKeyPressed="#keyPressed" onMouseDragged="#movePlayerDragging" onMousePressed="#mousePress" width="500.0" />
+                <MazeDisplayer fx:id="mazeDisplayer" height="500.0" imageFileNamePlayer="C:\Users\noabi\Downloads\Characters\Picture4.png" imageFileNameWall="./resources/images/wall7.png" imageFileNameSolve="C:\Users\noabi\Downloads\SOLVE.png" onKeyPressed="#keyPressed" onMouseDragged="#movePlayerDragging" onMousePressed="#mousePress" width="500.0" />
             </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

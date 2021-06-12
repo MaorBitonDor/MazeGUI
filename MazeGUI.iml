@@ -24,10 +24,11 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="lib" level="project" />
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../PartA/out/artifacts/ATP_Project_PartB_jar/ATPProjectJAR.jar!/" />
+          <root url="jar://$MODULE_DIR$/../ATP-Project-PartA/out/artifacts/ATP_Project_PartB_jar/ATPProjectJAR.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

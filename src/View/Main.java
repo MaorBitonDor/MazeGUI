@@ -23,7 +23,8 @@ public class Main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../View/openingScene.fxml"));
         Parent root = fxmlLoader.load();
         primaryStage.setTitle("Best Maze Game");
-        primaryStage.setScene(new Scene(root, 800, 600));
+        Scene scene = new Scene(root, 800, 600);
+        primaryStage.setScene(scene);
 //        primaryStage.setOnCloseRequest(event -> {
 //            solveSearchProblemServer.stop();
 //            mazeGeneratingServer.stop();
@@ -33,6 +34,7 @@ public class Main extends Application {
         IModel model = new MyModel();
         MyViewModel viewModel = new MyViewModel(model);
         AView view = fxmlLoader.getController();
+        view.resizeScene(scene);
         view.setViewModel(viewModel);
     }
 

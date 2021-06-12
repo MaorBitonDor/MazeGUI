@@ -1,20 +1,24 @@
 package View;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.Region;
+import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -25,7 +29,7 @@ import java.net.URL;
 import java.util.Observable;
 import java.util.ResourceBundle;
 
-public class MyViewController extends AView implements Initializable {
+public class MyViewController extends AView {
 
     public MazeDisplayer mazeDisplayer;
     public TextField textField_mazeRows;
@@ -41,10 +45,18 @@ public class MyViewController extends AView implements Initializable {
     public double finishX = -1;
     public double finishY = -1;
     public Button generateBtn;
+    public ColumnConstraints grid;
+    public Label playerColLabel;
+    public Label playerRowLabel;
+    public Button solveBtn;
+    public Button clearBtn;
+    public Label rowLabel;
+    public Label colsLabel;
 //    public volatile boolean pressed;
 
     StringProperty updatePlayerRow = new SimpleStringProperty();
     StringProperty updatePlayerCol = new SimpleStringProperty();
+    private DoubleProperty textFontSize = new SimpleDoubleProperty();
 
     public String getUpdatePlayerRow() {
         return updatePlayerRow.get();
@@ -96,6 +108,30 @@ public class MyViewController extends AView implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         playerRow.textProperty().bind(updatePlayerRow);
         playerCol.textProperty().bind(updatePlayerCol);
+        generateBtn.prefHeightProperty().bind(borderPane.heightProperty().divide(10));
+        generateBtn.prefWidthProperty().bind(borderPane.widthProperty().divide(3));
+        clearBtn.prefHeightProperty().bind(borderPane.heightProperty().divide(10));
+        clearBtn.prefWidthProperty().bind(borderPane.widthProperty().divide(3));
+        solveBtn.prefHeightProperty().bind(borderPane.heightProperty().divide(10));
+        solveBtn.prefWidthProperty().bind(borderPane.widthProperty().divide(3));
+        textField_mazeColumns.prefHeightProperty().bind(borderPane.heightProperty().divide(10));
+        textField_mazeColumns.prefWidthProperty().bind(borderPane.widthProperty().divide(3));
+        textField_mazeRows.prefHeightProperty().bind(borderPane.heightProperty().divide(10));
+        textField_mazeRows.prefWidthProperty().bind(borderPane.widthProperty().divide(3));
+        playerCol.prefHeightProperty().bind(borderPane.heightProperty().divide(10));
+        playerCol.prefWidthProperty().bind(borderPane.widthProperty().divide(3));
+        playerRow.prefHeightProperty().bind(borderPane.heightProperty().divide(10));
+        playerRow.prefWidthProperty().bind(borderPane.widthProperty().divide(3));
+        playerColLabel.prefHeightProperty().bind(borderPane.heightProperty().divide(10));
+        playerColLabel.prefWidthProperty().bind(borderPane.widthProperty().divide(3));
+        playerRowLabel.prefHeightProperty().bind(borderPane.heightProperty().divide(10));
+        playerRowLabel.prefWidthProperty().bind(borderPane.widthProperty().divide(3));
+        rowLabel.prefHeightProperty().bind(borderPane.heightProperty().divide(10));
+        rowLabel.prefWidthProperty().bind(borderPane.widthProperty().divide(3));
+        colsLabel.prefHeightProperty().bind(borderPane.heightProperty().divide(10));
+        colsLabel.prefWidthProperty().bind(borderPane.widthProperty().divide(3));
+
+        textFontSize.bind(generateBtn.heightProperty().divide(3));
     }
 
     public void mouseClicked(MouseEvent mouseEvent) {
@@ -147,30 +183,31 @@ public class MyViewController extends AView implements Initializable {
 
     public void openProperties(ActionEvent actionEvent) {
         //todo
-//        try {
-//            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../View/Properties.fxml"));
-//            Parent root1 = fxmlLoader.load();
-//            Stage stage = new Stage();
-//            stage.setScene(new Scene(root1));
-//            stage.initModality(Modality.APPLICATION_MODAL);
-//            stage.showAndWait();
-//        } catch(Exception e) {
-//            Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setContentText("Could not change scenes");
-//            alert.show();
-//        }
-
-        String fxmlPath = "../View/Properties.fxml";
-        String title = "Properties";
-        Stage window = getStage(generateBtn);
-
         try {
-            this.changeScene(window,title,fxmlPath);
-        } catch (IOException e) {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../View/Properties.fxml"));
+            Parent root1 = fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root1));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.sizeToScene();
+            stage.showAndWait();
+        } catch(Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Could not change scenes");
             alert.show();
         }
+
+//        String fxmlPath = "../View/Properties.fxml";
+//        String title = "Properties";
+//        Stage window = getStage(generateBtn);
+//
+//        try {
+//            this.changeScene(window,title,fxmlPath);
+//        } catch (IOException e) {
+//            Alert alert = new Alert(Alert.AlertType.ERROR);
+//            alert.setContentText("Could not change scenes");
+//            alert.show();
+//        }
     }
 
     public void exitGame(ActionEvent actionEvent) {
@@ -209,5 +246,64 @@ public class MyViewController extends AView implements Initializable {
     public void mousePress(MouseEvent mouseEvent) {
         startX = mouseEvent.getX();
         startY = mouseEvent.getY();
+    }
+
+    @Override
+    protected Region getBorderPane() {
+        return borderPane;
+    }
+
+    @Override
+    public void resizeScene(Scene scene) {
+        scene.heightProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                mazeDisplayer.setLayoutY(borderPane.getHeight()/10);
+                textField_mazeColumns.setLayoutY(borderPane.getHeight()/10);
+                textField_mazeColumns.setFont(new Font(textField_mazeColumns.getFont().getName(), textFontSize.doubleValue()));
+                textField_mazeRows.setLayoutY(borderPane.getHeight()/10);
+                textField_mazeRows.setFont(new Font(textField_mazeRows.getFont().getName(), textFontSize.doubleValue()));
+                playerCol.setLayoutY(borderPane.getHeight()/10);
+                playerCol.setFont(new Font(playerCol.getFont().getName(), textFontSize.doubleValue()));
+                playerRow.setLayoutY(borderPane.getHeight()/10);
+                playerRow.setFont(new Font(playerRow.getFont().getName(), textFontSize.doubleValue()));
+                generateBtn.setLayoutY(borderPane.getHeight()/10);
+                generateBtn.setFont(new Font(generateBtn.getFont().getName(), textFontSize.doubleValue()));
+                solveBtn.setLayoutY(borderPane.getHeight()/10);
+                solveBtn.setFont(new Font(solveBtn.getFont().getName(), textFontSize.doubleValue()));
+                clearBtn.setLayoutY(borderPane.getHeight()/10);
+                clearBtn.setFont(new Font(clearBtn.getFont().getName(), textFontSize.doubleValue()));
+                rowLabel.setLayoutY(borderPane.getHeight()/10);
+                rowLabel.setFont(new Font(rowLabel.getFont().getName(), textFontSize.doubleValue()));
+                colsLabel.setLayoutY(borderPane.getHeight()/10);
+                colsLabel.setFont(new Font(colsLabel.getFont().getName(), textFontSize.doubleValue()));
+
+            }
+        });
+
+        scene.widthProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                mazeDisplayer.setLayoutX(borderPane.getWidth()/10);
+                textField_mazeColumns.setLayoutX(borderPane.getWidth()/10);
+                textField_mazeColumns.setFont(new Font(textField_mazeColumns.getFont().getName(), textFontSize.doubleValue()));
+                textField_mazeRows.setLayoutX(borderPane.getWidth()/10);
+                textField_mazeRows.setFont(new Font(textField_mazeRows.getFont().getName(), textFontSize.doubleValue()));
+                playerCol.setLayoutX(borderPane.getWidth()/10);
+                playerCol.setFont(new Font(playerCol.getFont().getName(), textFontSize.doubleValue()));
+                playerRow.setLayoutX(borderPane.getWidth()/10);
+                playerRow.setFont(new Font(playerRow.getFont().getName(), textFontSize.doubleValue()));
+                generateBtn.setLayoutX(borderPane.getWidth()/10);
+                generateBtn.setFont(new Font(generateBtn.getFont().getName(), textFontSize.doubleValue()));
+                solveBtn.setLayoutX(borderPane.getWidth()/10);
+                solveBtn.setFont(new Font(solveBtn.getFont().getName(), textFontSize.doubleValue()));
+                clearBtn.setLayoutX(borderPane.getWidth()/10);
+                clearBtn.setFont(new Font(clearBtn.getFont().getName(), textFontSize.doubleValue()));
+                rowLabel.setLayoutX(borderPane.getWidth()/10);
+                rowLabel.setFont(new Font(rowLabel.getFont().getName(), textFontSize.doubleValue()));
+                colsLabel.setLayoutX(borderPane.getWidth()/10);
+                colsLabel.setFont(new Font(colsLabel.getFont().getName(), textFontSize.doubleValue()));
+            }
+        });
     }
 }

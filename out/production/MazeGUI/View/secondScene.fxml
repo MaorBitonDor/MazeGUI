@@ -11,19 +11,18 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="474.0" prefWidth="781.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.SecondSceneController">
+<BorderPane fx:id="pane" prefHeight="474.0" prefWidth="781.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.SecondSceneController">
    <top>
       <MenuBar prefHeight="26.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <menus>
             <Menu id="help" mnemonicParsing="false" text="Help">
                <items>
-                  <MenuItem fx:id="rules" mnemonicParsing="false" onAction="#openRules" text="Game Rules" />
+                  <MenuItem fx:id="rules" mnemonicParsing="false" onAction="#openRules" text="Instructions" />
                </items>
             </Menu>
             <Menu id="about" mnemonicParsing="false" text="About">
                <items>
-                  <MenuItem fx:id="aboutProgrammers" mnemonicParsing="false" onAction="#openProgrammersData" text="Programmers" />
-                  <MenuItem fx:id="algorithms" mnemonicParsing="false" onAction="#openAboutAlgorithms" text="Algorithms" />
+                  <MenuItem fx:id="Information" mnemonicParsing="false" onAction="#openAbout" text="Information" />
                </items>
             </Menu>
          </menus>
