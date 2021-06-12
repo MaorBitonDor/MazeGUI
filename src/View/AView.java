@@ -27,7 +27,7 @@ public abstract class AView implements IView, Observer{
         AView newView = fxmlLoader.getController();
         newView.setViewModel(viewModel);
         window.setTitle(title);
-        Scene newScene = new Scene(root, 600, 600);
+        Scene newScene = new Scene(root, 800, 600);
         window.setScene(newScene);
         window.show();
         newScene.getRoot().requestFocus();

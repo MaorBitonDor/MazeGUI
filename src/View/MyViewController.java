@@ -3,7 +3,10 @@ package View;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,11 +15,12 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Observable;
 import java.util.ResourceBundle;
@@ -32,6 +36,12 @@ public class MyViewController extends AView implements Initializable {
 
     public double borderPaneWidth;
     public double borderPaneHeight;
+    public double startX = -1;
+    public double startY = -1;
+    public double finishX = -1;
+    public double finishY = -1;
+    public Button generateBtn;
+//    public volatile boolean pressed;
 
     StringProperty updatePlayerRow = new SimpleStringProperty();
     StringProperty updatePlayerCol = new SimpleStringProperty();
@@ -65,7 +75,7 @@ public class MyViewController extends AView implements Initializable {
 
     private void mazeSolved() {
         mazeDisplayer.setSolution(viewModel.getSolution());
-        mazeDisplayer.drawMaze(viewModel.getMaze());
+        mazeDisplayer.draw();
     }
 
     private void playerMoved() {
@@ -111,6 +121,7 @@ public class MyViewController extends AView implements Initializable {
             int rows = Integer.valueOf(textField_mazeRows.getText());
             int cols = Integer.valueOf(textField_mazeColumns.getText());
             viewModel.generateMaze(rows, cols);
+            mazeDisplayer.setSolution(null);
             mazeDisplayer.drawMaze(viewModel.getMaze());
             this.borderPaneWidth = borderPane.getWidth();
             this.borderPaneHeight = borderPane.getHeight();
@@ -136,6 +147,30 @@ public class MyViewController extends AView implements Initializable {
 
     public void openProperties(ActionEvent actionEvent) {
         //todo
+//        try {
+//            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../View/Properties.fxml"));
+//            Parent root1 = fxmlLoader.load();
+//            Stage stage = new Stage();
+//            stage.setScene(new Scene(root1));
+//            stage.initModality(Modality.APPLICATION_MODAL);
+//            stage.showAndWait();
+//        } catch(Exception e) {
+//            Alert alert = new Alert(Alert.AlertType.ERROR);
+//            alert.setContentText("Could not change scenes");
+//            alert.show();
+//        }
+
+        String fxmlPath = "../View/Properties.fxml";
+        String title = "Properties";
+        Stage window = getStage(generateBtn);
+
+        try {
+            this.changeScene(window,title,fxmlPath);
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Could not change scenes");
+            alert.show();
+        }
     }
 
     public void exitGame(ActionEvent actionEvent) {
@@ -144,53 +179,35 @@ public class MyViewController extends AView implements Initializable {
 
     public void clearSolution(ActionEvent actionEvent) {
         mazeDisplayer.setSolution(null);
-        mazeDisplayer.drawMaze(viewModel.getMaze());
+        mazeDisplayer.draw();
     }
 
+    //todo fix
     public void changeZoom(ScrollEvent scrollEvent) {
-        double delta = 1.05;
-        double scaleX = borderPane.getScaleX(); // currently we only use Y, same value is used for X
-        double scaleY = borderPane.getScaleY(); // currently we only use Y, same value is used for X
-        double oldScaleY = scaleY;
-        double oldScaleX = scaleX;
-
+        double delta = 1.1;
         if (scrollEvent.getDeltaY() < 0)
         {
-            scaleY /= delta;
-            scaleX /= delta;
+            mazeDisplayer.setScale(mazeDisplayer.getScale()/ delta) ;
         }
-
         else{
-            scaleY *= delta;
-            scaleX *= delta;
+            mazeDisplayer.setScale(mazeDisplayer.getScale() * delta) ;
         }
-
-        scaleY = clamp( scaleY, 0, 800);
-        scaleX = clamp( scaleX, 0, 800);
-
-//        double fx = (scaleX / oldScaleX)-1;
-//        double fy = (scaleY / oldScaleY)-1;
-//
-//        double dx = (scrollEvent.getSceneX() - (borderPane.getBoundsInParent().getWidth()/2 + borderPane.getBoundsInParent().getMinX()));
-//        double dy = (scrollEvent.getSceneY() - (borderPane.getBoundsInParent().getHeight()/2 + borderPane.getBoundsInParent().getMinY()));
-
-        borderPane.setScaleY(scaleY);
-        borderPane.setScaleX(scaleX);
-
-        // note: pivot value must be untransformed, i. e. without scaling
-//        setPivot(fx*dx, fy*dy);
-
+        mazeDisplayer.draw();
         scrollEvent.consume();
     }
 
-    public static double clamp( double value, double min, double max) {
+    public void movePlayerDragging(MouseEvent mouseEvent) {
+        finishX = mouseEvent.getX();
+        finishY = mouseEvent.getY();
+        double deltaX = finishX - startX;
+        double deltaY = finishY - startY;
+        if(Math.abs(deltaX)> 0 || Math.abs(deltaY)> 0)
+            viewModel.dragPlayer(mouseEvent,deltaX,deltaY);
+        mouseEvent.consume();
+    }
 
-        if( Double.compare(value, min) < 0)
-            return min;
-
-        if( Double.compare(value, max) > 0)
-            return max;
-
-        return value;
+    public void mousePress(MouseEvent mouseEvent) {
+        startX = mouseEvent.getX();
+        startY = mouseEvent.getY();
     }
 }

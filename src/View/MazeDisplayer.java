@@ -2,6 +2,7 @@ package View;
 
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.MyMazeGenerator;
+import algorithms.mazeGenerators.Position;
 import algorithms.search.AState;
 import algorithms.search.MazeState;
 import algorithms.search.Solution;
@@ -27,6 +28,11 @@ public class MazeDisplayer extends Canvas {
     StringProperty imageFileNameWall = new SimpleStringProperty();
     StringProperty imageFileNamePlayer = new SimpleStringProperty();
     private Solution solution;
+    private Camera camera = new Camera(this);
+//    private double delta = 1;
+    private double scale = this.getScaleX();
+    public double cellHeight;
+    public double cellWidth;
 
     public void setSolution(Solution solution) {
         this.solution = solution;
@@ -43,6 +49,11 @@ public class MazeDisplayer extends Canvas {
     public void setPlayerPosition(int row, int col) {
         this.playerRow = row;
         this.playerCol = col;
+        try {
+            camera.update(new Position(row,col),scale);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         draw();
     }
 
@@ -77,32 +88,36 @@ public class MazeDisplayer extends Canvas {
         draw();
     }
 
-    private void draw() {
+    public void draw() {
         if(maze != null){
-            double canvasHeight = getHeight();
-            double canvasWidth = getWidth();
+            double canvasHeight = this.getHeight();
+            double canvasWidth = this.getWidth();
             int rows = maze.getMaze().length;
             int cols = maze.getMaze()[0].length;
 
-            double cellHeight = canvasHeight / rows;
-            double cellWidth = canvasWidth / cols;
+            this.cellHeight = (canvasHeight / rows)*scale;
+            this.cellWidth = (canvasWidth / cols)*scale;
 
             GraphicsContext graphicsContext = getGraphicsContext2D();
             //clear the canvas:
             graphicsContext.clearRect(0, 0, canvasWidth, canvasHeight);
 
+//            graphicsContext.translate(-camera.getCamX(), -camera.getCamY());
             drawMazeWalls(graphicsContext, cellHeight, cellWidth, rows, cols);
             if(solution != null)
             {
-                drawSolution(graphicsContext, cellHeight, cellWidth, rows, cols);
+                drawSolution(graphicsContext, cellHeight, cellWidth);
             }
             drawPlayer(graphicsContext, cellHeight, cellWidth);
+//            graphicsContext.translate(-camera.getCamX(), -camera.getCamY());
         }
     }
 
-    private void drawSolution(GraphicsContext graphicsContext, double cellHeight, double cellWidth, int rows, int cols) {
+    private void drawSolution(GraphicsContext graphicsContext, double cellHeight, double cellWidth) {
         ArrayList<AState> path = this.solution.getSolutionPath();
         graphicsContext.setFill(Color.TURQUOISE);
+        //cellHeight = cellHeight*delta;
+        //cellWidth = cellWidth*delta;
         for (AState state: path) {
             MazeState mazeState = (MazeState) state;
             int rowIndex = mazeState.getPositionRow();
@@ -115,7 +130,8 @@ public class MazeDisplayer extends Canvas {
 
     private void drawMazeWalls(GraphicsContext graphicsContext, double cellHeight, double cellWidth, int rows, int cols) {
         graphicsContext.setFill(Color.RED);
-
+        //cellHeight = cellHeight*delta;
+        //cellWidth = cellWidth*delta;
         Image wallImage = null;
         try{
             wallImage = new Image(new FileInputStream(getImageFileNameWall()));
@@ -147,6 +163,8 @@ public class MazeDisplayer extends Canvas {
     }
 
     private void drawPlayer(GraphicsContext graphicsContext, double cellHeight, double cellWidth) {
+        //cellHeight = cellHeight*delta;
+        //cellWidth = cellWidth*delta;
         double x = getPlayerCol() * cellWidth;
         double y = getPlayerRow() * cellHeight;
         graphicsContext.setFill(Color.GREEN);
@@ -161,5 +179,17 @@ public class MazeDisplayer extends Canvas {
             graphicsContext.fillRect(x, y, cellWidth, cellHeight);
         else
             graphicsContext.drawImage(playerImage, x, y, cellWidth, cellHeight);
+    }
+
+    public double getScale() {
+        return scale;
+    }
+
+    public void setScale(double scale) {
+        this.scale = scale;
+    }
+
+    public Camera getCamera() {
+        return camera;
     }
 }

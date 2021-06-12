@@ -5,6 +5,7 @@ import Model.MovementDirection;
 import algorithms.mazeGenerators.Maze;
 import algorithms.search.Solution;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -48,14 +49,10 @@ public class MyViewModel extends Observable implements Observer {
     public void movePlayer(KeyEvent keyEvent) {
         MovementDirection direction;
         switch (keyEvent.getCode()){
-            case NUMPAD8 -> direction = MovementDirection.UP;
-            case UP -> direction = MovementDirection.UP;
-            case NUMPAD2 -> direction = MovementDirection.DOWN;
-            case DOWN -> direction = MovementDirection.DOWN;
-            case NUMPAD4 -> direction = MovementDirection.LEFT;
-            case LEFT -> direction = MovementDirection.LEFT;
-            case NUMPAD6 -> direction = MovementDirection.RIGHT;
-            case RIGHT -> direction = MovementDirection.RIGHT;
+            case NUMPAD8, UP -> direction = MovementDirection.UP;
+            case NUMPAD2, DOWN -> direction = MovementDirection.DOWN;
+            case NUMPAD4, LEFT -> direction = MovementDirection.LEFT;
+            case NUMPAD6, RIGHT -> direction = MovementDirection.RIGHT;
             case NUMPAD9 -> direction = MovementDirection.TOPRIGHT;
             case NUMPAD7 -> direction = MovementDirection.TOPLEFT;
             case NUMPAD3 -> direction = MovementDirection.BOTTOMRIGHT;
@@ -63,6 +60,30 @@ public class MyViewModel extends Observable implements Observer {
             default -> {
                 // no need to move the player...
                 return;
+            }
+        }
+        model.updatePlayerLocation(direction);
+    }
+
+    public void dragPlayer(MouseEvent mouseEvent, double deltaX, double deltaY) {
+        //chanhe to new x and y
+        MovementDirection direction = null;
+        double first = deltaX;
+        double second = deltaY;
+        if(Math.abs(deltaX)>Math.abs(deltaY)){
+            if(deltaX>0){
+                direction = MovementDirection.RIGHT;
+            }
+            else if(deltaX<0){
+                direction = MovementDirection.LEFT;
+            }
+        }
+        else{
+            if(deltaY>0){
+                direction = MovementDirection.DOWN;
+            }
+            else if(deltaY<0){
+                direction = MovementDirection.UP;
             }
         }
         model.updatePlayerLocation(direction);

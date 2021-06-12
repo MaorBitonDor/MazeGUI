@@ -28,8 +28,8 @@ public class MyModel extends Observable implements IModel {
             InetAddress serverIP = InetAddress.getLocalHost();
             ClientGenerateStrategy generate = new ClientGenerateStrategy(rows,cols);
             Client clientGenerator = new Client(serverIP,serverPort, generate);
-            //clientGenerator.communicateWithServer();
-            //maze = generate.getMaze();
+//            clientGenerator.communicateWithServer();
+//            maze = generate.getMaze();
 //            if(maze==null){
             if(true){
 //                Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -38,9 +38,9 @@ public class MyModel extends Observable implements IModel {
                 //todo delete
                 MyMazeGenerator myMazeGenerator = new MyMazeGenerator();
                 maze = myMazeGenerator.generate(cols,rows);
-                mazeArray = maze.getMaze();
 //                return;
             }
+            mazeArray = maze.getMaze();
             setChanged();
             notifyObservers("GENERATED");
             // start position:
@@ -142,7 +142,8 @@ public class MyModel extends Observable implements IModel {
             notifyObservers("SOLVED");
         }
         catch (Exception e){
-
+            //todo alert box
+            e.printStackTrace();
         }
     }
 
