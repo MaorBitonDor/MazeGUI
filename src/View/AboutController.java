@@ -1,6 +1,7 @@
 package View;
 
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -13,12 +14,8 @@ import java.util.ResourceBundle;
 
 public class AboutController extends AView{
     public AnchorPane anchorPane;
-    public ImageView backBtn;
+    public ImageView image;
 
-    public void CloseWindow(MouseEvent mouseEvent) {
-        Stage window = (Stage) backBtn.getScene().getWindow();
-        window.close();
-    }
 
     @Override
     protected Region getBorderPane() {
@@ -37,6 +34,9 @@ public class AboutController extends AView{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        image.fitHeightProperty().bind(anchorPane.heightProperty());
+        image.fitWidthProperty().bind(anchorPane.widthProperty());
+        Image image = new Image(getClass().getResourceAsStream("/images/about.bmp"));
+        this.image.setImage(image);
     }
 }

@@ -10,25 +10,39 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
+
+import java.util.Optional;
 
 public class Main extends Application {
 
+    public static Server mazeGeneratingServer;
+    public static Server solveSearchProblemServer;
+
     @Override
     public void start(Stage primaryStage) throws Exception{
-//        Server mazeGeneratingServer = new Server(5400, 1000, new ServerStrategyGenerateMaze());
-//        Server solveSearchProblemServer = new Server(5401, 1000, new ServerStrategySolveSearchProblem());
-//        solveSearchProblemServer.start();
-//        mazeGeneratingServer.start();
+        mazeGeneratingServer = new Server(5400, 1000, new ServerStrategyGenerateMaze());
+        solveSearchProblemServer = new Server(5401, 1000, new ServerStrategySolveSearchProblem());
+        solveSearchProblemServer.start();
+        mazeGeneratingServer.start();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../View/openingScene.fxml"));
         Parent root = fxmlLoader.load();
         primaryStage.setTitle("Best Maze Game");
-        Scene scene = new Scene(root, 800, 600);
+        Scene scene = new Scene(root, 900, 600);
         primaryStage.setScene(scene);
-//        primaryStage.setOnCloseRequest(event -> {
-//            solveSearchProblemServer.stop();
-//            mazeGeneratingServer.stop();
-//        });
+        //todo add are you sure box
+        primaryStage.setOnCloseRequest(event -> {
+            Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+            a.setContentText("Are you sure you want to exit?");
+            Optional<ButtonType> result = a.showAndWait();
+            if(result.get() == ButtonType.OK){
+                solveSearchProblemServer.stop();
+                mazeGeneratingServer.stop();
+//                System.out.println("bye");
+            }
+        });
         primaryStage.show();
 
         IModel model = new MyModel();

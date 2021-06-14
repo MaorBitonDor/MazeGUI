@@ -7,9 +7,10 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Font;
@@ -22,15 +23,34 @@ import java.util.ResourceBundle;
 
 public class SecondSceneController extends AView{
     public Button generateBtn;
-    public BorderPane pane;
+    public AnchorPane pane;
+    public ImageView image;
+    public MenuBar menuBar;
+    public RadioButton HalissiChar;
+    public ImageView halissi;
+    public RadioButton JohnChar;
+    public ImageView john;
+    public RadioButton TyrionChar;
+    public ImageView tyrion;
+    public RadioButton JoffreyChar;
+    public ImageView joffrey;
+    public RadioButton wall1;
+    public ImageView wall1image;
+    public RadioButton wall2;
+    public ImageView wall2image;
+    public RadioButton castleWall;
+    public ImageView imageCastleWall;
     private DoubleProperty textFontSize = new SimpleDoubleProperty();
 
-    public void generateMaze(ActionEvent actionEvent) {
+    public void submit(ActionEvent actionEvent) {
+        if(charImagePath==null || wallImagePath==null){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Please select character and wall");
+            alert.show();
+            return;
+        }
         try{
-            //int rows = Integer.valueOf(textField_mazeRows.getText());
-            //int cols = Integer.valueOf(textField_mazeColumns.getText());
 
-            //viewModel.generateMaze(rows, cols);
             changeMainScene();
         }
         catch(Exception e){
@@ -45,6 +65,7 @@ public class SecondSceneController extends AView{
         String fxmlPath = "../View/MyView.fxml";
         String title = "Main Game";
         Stage window = getStage(generateBtn);
+
         try {
             this.changeScene(window,title,fxmlPath);
 
@@ -66,10 +87,49 @@ public class SecondSceneController extends AView{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        charImagePath=null;
+        wallImagePath=null;
         generateBtn.prefHeightProperty().bind(pane.heightProperty().divide(10));
-        generateBtn.prefWidthProperty().bind(pane.widthProperty().divide(3));
+        generateBtn.prefWidthProperty().bind(pane.widthProperty().divide(6));
+        generateBtn.relocate(200,500);
+        menuBar.prefWidthProperty().bind(pane.widthProperty());
+        image.fitHeightProperty().bind(pane.heightProperty());
+        image.fitWidthProperty().bind(pane.widthProperty());
+        Image image = new Image(getClass().getResourceAsStream("/images/Slide1.BMP"));
+        this.image.setImage(image);
+        Image halissi = new Image(getClass().getResourceAsStream("/images/Picture1.png"));
+        this.halissi.setImage(halissi);
+        Image john = new Image(getClass().getResourceAsStream("/images/Picture3.png"));
+        this.john.setImage(john);
+        Image tyrion = new Image(getClass().getResourceAsStream("/images/Picture4.png"));
+        this.tyrion.setImage(tyrion);
+        Image joffrey = new Image(getClass().getResourceAsStream("/images/joffrey.png"));
+        this.joffrey.setImage(joffrey);
+        Image wall1image = new Image(getClass().getResourceAsStream("/images/icewall3.jpg"));
+        this.wall1image.setImage(wall1image);
+        Image wall2image = new Image(getClass().getResourceAsStream("/images/wall2.png"));
+        this.wall2image.setImage(wall2image);
+        Image imageCastleWall = new Image(getClass().getResourceAsStream("/images/castlewall.png"));
+        this.imageCastleWall.setImage(imageCastleWall);
+
+
         textFontSize.bind(generateBtn.heightProperty().divide(3));
     }
+
+    private void allCharsNotSelected(){
+        HalissiChar.setSelected(false);
+        JohnChar.setSelected(false);
+        JoffreyChar.setSelected(false);
+        TyrionChar.setSelected(false);
+
+    }
+    private void allWallsNotSelected(){
+        wall1.setSelected(false);
+        wall2.setSelected(false);
+        castleWall.setSelected(false);
+
+    }
+
 
     @Override
     protected Region getBorderPane() {
@@ -81,7 +141,7 @@ public class SecondSceneController extends AView{
         scene.heightProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                generateBtn.setLayoutY(pane.getHeight()/10);
+                generateBtn.setLayoutY(pane.getHeight()/1.2);
                 generateBtn.setFont(new Font(generateBtn.getFont().getName(), textFontSize.doubleValue()));
             }
         });
@@ -89,10 +149,52 @@ public class SecondSceneController extends AView{
         scene.widthProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                generateBtn.setLayoutX(pane.getWidth()/10);
+                generateBtn.setLayoutX(pane.getWidth()/4.5);
                 generateBtn.setFont(new Font(generateBtn.getFont().getName(), textFontSize.doubleValue()));
             }
         });
 
+    }
+
+    public void wall2Selected(ActionEvent actionEvent) {
+        allWallsNotSelected();
+        wall2.setSelected(true);
+        wallImagePath = "./resources/images/wall2.png";
+    }
+
+    public void wall1Selected(ActionEvent actionEvent) {
+        allWallsNotSelected();
+        wall1.setSelected(true);
+        wallImagePath = "./resources/images/icewall3.jpg";
+    }
+
+    public void joeffreySelected(ActionEvent actionEvent) {
+        allCharsNotSelected();
+        JoffreyChar.setSelected(true);
+        charImagePath = "./resources/images/joffrey.png";
+    }
+
+    public void tyrionSelected(ActionEvent actionEvent) {
+        allCharsNotSelected();
+        TyrionChar.setSelected(true);
+        charImagePath = "./resources/images/Picture4.png";
+    }
+
+    public void johnSelected(ActionEvent actionEvent) {
+        allCharsNotSelected();
+        JohnChar.setSelected(true);
+        charImagePath = "./resources/images/Picture3.png";
+    }
+
+    public void halissiSelected(ActionEvent actionEvent) {
+        allCharsNotSelected();
+        HalissiChar.setSelected(true);
+        charImagePath = "./resources/images/Picture1.png";
+    }
+
+    public void castleWallSelected(ActionEvent actionEvent) {
+        allWallsNotSelected();
+        castleWall.setSelected(true);
+        wallImagePath = "./resources/images/castlewall.png";
     }
 }

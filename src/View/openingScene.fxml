@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="pane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.OpeningSceneController">
-   <top>
-      <MenuBar prefHeight="26.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+
+<AnchorPane fx:id="anchorPane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.OpeningSceneController">
+   <children>
+       <ImageView fx:id="image" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="false" />
+
+
+      <MenuBar fx:id="menuBar" prefHeight="26.0" prefWidth="600.0">
         <menus>
           <Menu id="help" mnemonicParsing="false" text="Help">
                <items>
@@ -26,28 +28,10 @@
           </Menu>
         </menus>
       </MenuBar>
-   </top>
-   <center>
-      <VBox fx:id="openingVbox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-         <children>
-            <Label fx:id="label1" alignment="CENTER" text="Welcome To Maor's and Noa's">
-               <font>
-                  <Font name="Segoe Print Bold" size="25.0" />
-               </font>
-            </Label>
-            <Label fx:id="label2" alignment="CENTER" text="Maze Game">
-               <font>
-                  <Font name="Segoe Print Bold" size="25.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="10.0" left="3.0" right="3.0" top="3.0" />
-               </VBox.margin>
-            </Label>
-            <Button fx:id="startBtn" alignment="CENTER" mnemonicParsing="false" onAction="#openSecondScene" text="Start">
-               <font>
-                  <Font name="Segoe Print" size="18.0" />
-               </font></Button>
-         </children>
-      </VBox>
-   </center>
-</BorderPane>
+       <Button fx:id="startBtn" alignment="CENTER" mnemonicParsing="false" onAction="#openSecondScene" text="Start">
+           <font>
+               <Font name="Segoe Print" size="18.0" />
+           </font>
+       </Button>
+   </children>
+</AnchorPane>

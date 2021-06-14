@@ -15,6 +15,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class MyModel extends Observable implements IModel {
+
     private Maze maze;
     private int[][] mazeArray;
     private int playerRow;
@@ -28,17 +29,17 @@ public class MyModel extends Observable implements IModel {
             InetAddress serverIP = InetAddress.getLocalHost();
             ClientGenerateStrategy generate = new ClientGenerateStrategy(rows,cols);
             Client clientGenerator = new Client(serverIP,serverPort, generate);
-//            clientGenerator.communicateWithServer();
-//            maze = generate.getMaze();
-//            if(maze==null){
-            if(true){
-//                Alert alert = new Alert(Alert.AlertType.ERROR);
-//                alert.setContentText("Maze failed to generate please try again");
-//                alert.show();
+            clientGenerator.communicateWithServer();
+            maze = generate.getMaze();
+            if(maze==null){
+//            if(true){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Maze failed to generate please try again");
+                alert.show();
                 //todo delete
-                MyMazeGenerator myMazeGenerator = new MyMazeGenerator();
-                maze = myMazeGenerator.generate(cols,rows);
-//                return;
+//                MyMazeGenerator myMazeGenerator = new MyMazeGenerator();
+//                maze = myMazeGenerator.generate(cols,rows);
+                return;
             }
             mazeArray = maze.getMaze();
             setChanged();
@@ -57,6 +58,15 @@ public class MyModel extends Observable implements IModel {
     public Maze getMaze() {
         return maze;
     }
+
+    public void setMaze(Maze maze) {
+        this.maze = maze;
+        this.mazeArray=maze.getMaze();
+        solution=null;
+        playerCol=maze.getStartPosition().getColumnIndex();
+        playerRow=maze.getStartPosition().getRowIndex();
+    }
+
 
     @Override
     public void updatePlayerLocation(MovementDirection direction) {
@@ -127,11 +137,11 @@ public class MyModel extends Observable implements IModel {
             InetAddress serverIP = InetAddress.getLocalHost();
             ClientSolveStrategy solver = new ClientSolveStrategy(this.maze);
             Client clientSolver = new Client(serverIP, serverPort, solver);
-//            clientSolver.communicateWithServer(); todo change
-            BestFirstSearch best = new BestFirstSearch();
-//            this.solution = solver.getSolution();
-            SearchableMaze searchableMaze = new SearchableMaze(maze);
-            this.solution = best.solve(searchableMaze);
+            clientSolver.communicateWithServer(); //todo change
+//            BestFirstSearch best = new BestFirstSearch();
+            this.solution = solver.getSolution();
+//            SearchableMaze searchableMaze = new SearchableMaze(maze);
+//            this.solution = best.solve(searchableMaze);
             if(solution == null){
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText("Couldn't solve this maze try again");

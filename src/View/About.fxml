@@ -4,16 +4,11 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-image: url(C:\Users\noabi\Downloads\Instructions\New Microsoft PowerPoint Presentation\Slide1.PNG); -fx-background-color: black; -fx-background-size: 100% 100%;" stylesheets="@firstScene.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.AboutController">
+<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.AboutController">
    <children>
-      <ImageView fitHeight="464.0" fitWidth="688.0" layoutX="-6.0" layoutY="-2.0" nodeOrientation="INHERIT">
+      <ImageView fx:id="image" fitHeight="464.0" fitWidth="688.0" layoutX="-6.0" layoutY="-2.0" nodeOrientation="INHERIT">
          <image>
-            <Image url="@../../../../Downloads/About.BMP" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="backBtn" fitHeight="45.0" fitWidth="41.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#CloseWindow" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../Downloads/Instructions/inst_back_button.png" />
+            <Image url="@../../resources/images/about.bmp" />
          </image>
       </ImageView>
    </children>

@@ -37,6 +37,7 @@ public class MyViewModel extends Observable implements Observer {
     }
 
     public Maze getMaze(){return model.getMaze();}
+    public void setMaze(Maze maze){model.setMaze(maze);}
 
     public int getPlayerRow() {
         return model.getPlayerRow();

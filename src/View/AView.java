@@ -1,6 +1,7 @@
 package View;
 
 import ViewModel.MyViewModel;
+import algorithms.mazeGenerators.Maze;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -10,19 +11,30 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.transform.Scale;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Observer;
 
 public abstract class AView implements IView, Observer, Initializable{
     protected MyViewModel viewModel;
+    public static String charImagePath;
+    public static String wallImagePath;
+
 
     public void setViewModel(MyViewModel viewModel) {
         this.viewModel = viewModel;
         this.viewModel.addObserver(this);
+    }
+
+
+    public void setMaze(Maze maze){
+        viewModel.setMaze(maze);
     }
 
     public void changeScene(Stage window, String title, String fxmlPath) throws IOException {
@@ -32,7 +44,7 @@ public abstract class AView implements IView, Observer, Initializable{
         newView.setViewModel(viewModel);
         window.setTitle(title);
         window.sizeToScene();
-        Scene newScene = new Scene(root, 800, 600);
+        Scene newScene = new Scene(root, 900, 600);
         newView.resizeScene(newScene);
         window.setScene(newScene);
         window.show();
@@ -44,17 +56,9 @@ public abstract class AView implements IView, Observer, Initializable{
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../View/Instructions.fxml"));
             Parent root1 = fxmlLoader.load();
             Stage stage = new Stage();
-            stage.setScene(new Scene(root1));
+            stage.setScene(new Scene(root1,700,500));
             stage.initModality(Modality.APPLICATION_MODAL);
-            Image image = new Image("C:/Users/noabi/Downloads/Instructions/Slide1.PNG");
 
-            BackgroundSize bSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false);
-
-            getBorderPane().setBackground(new Background(new BackgroundImage(image,
-                    BackgroundRepeat.NO_REPEAT,
-                    BackgroundRepeat.NO_REPEAT,
-                    BackgroundPosition.CENTER,
-                    bSize)));
             stage.sizeToScene();
             stage.showAndWait();
         } catch(Exception e) {
@@ -72,7 +76,7 @@ public abstract class AView implements IView, Observer, Initializable{
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../View/About.fxml"));
             Parent root1 = fxmlLoader.load();
             Stage stage = new Stage();
-            stage.setScene(new Scene(root1));
+            stage.setScene(new Scene(root1,700,500));
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.sizeToScene();
             stage.showAndWait();
@@ -90,4 +94,6 @@ public abstract class AView implements IView, Observer, Initializable{
     }
 
     public abstract void resizeScene(Scene scene);
+
+
 }
