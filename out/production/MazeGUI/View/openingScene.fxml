@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane fx:id="anchorPane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.OpeningSceneController">
    <children>
        <ImageView fx:id="image" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="false" />
@@ -28,10 +27,13 @@
           </Menu>
         </menus>
       </MenuBar>
-       <Button fx:id="startBtn" alignment="CENTER" mnemonicParsing="false" onAction="#openSecondScene" text="Start">
+       <Button fx:id="startBtn" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#openSecondScene" prefHeight="60.0" prefWidth="200.0" styleClass="buttonStyle" stylesheets="@Properties.css">
            <font>
                <Font name="Segoe Print" size="18.0" />
            </font>
+         <graphic>
+            <ImageView fx:id="btnImage" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+         </graphic>
        </Button>
    </children>
 </AnchorPane>

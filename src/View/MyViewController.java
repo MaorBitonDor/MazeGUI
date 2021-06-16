@@ -449,24 +449,24 @@ public class MyViewController extends AView {
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
                // mazeDisplayer.setLayoutY(borderPane.getHeight()/10);
                 mainScrollPane.setLayoutY(borderPane.getHeight()/10);
-                textField_mazeColumns.setLayoutY(borderPane.getHeight()/10);
-                textField_mazeColumns.setFont(new Font(textField_mazeColumns.getFont().getName(), textFontSize.doubleValue()));
-                textField_mazeRows.setLayoutY(borderPane.getHeight()/10);
-                textField_mazeRows.setFont(new Font(textField_mazeRows.getFont().getName(), textFontSize.doubleValue()));
-                playerCol.setLayoutY(borderPane.getHeight()/10);
-                playerCol.setFont(new Font(playerCol.getFont().getName(), textFontSize.doubleValue()));
-                playerRow.setLayoutY(borderPane.getHeight()/10);
-                playerRow.setFont(new Font(playerRow.getFont().getName(), textFontSize.doubleValue()));
-                generateBtn.setLayoutY(borderPane.getHeight()/10);
-                generateBtn.setFont(new Font(generateBtn.getFont().getName(), textFontSize.doubleValue()));
-                solveBtn.setLayoutY(borderPane.getHeight()/10);
-                solveBtn.setFont(new Font(solveBtn.getFont().getName(), textFontSize.doubleValue()));
-                clearBtn.setLayoutY(borderPane.getHeight()/10);
-                clearBtn.setFont(new Font(clearBtn.getFont().getName(), textFontSize.doubleValue()));
-                rowLabel.setLayoutY(borderPane.getHeight()/10);
-                rowLabel.setFont(new Font(rowLabel.getFont().getName(), textFontSize.doubleValue()));
-                colsLabel.setLayoutY(borderPane.getHeight()/10);
-                colsLabel.setFont(new Font(colsLabel.getFont().getName(), textFontSize.doubleValue()));
+//                textField_mazeColumns.setLayoutY(borderPane.getHeight()/10);
+//                textField_mazeColumns.setFont(new Font(textField_mazeColumns.getFont().getName(), textFontSize.doubleValue()));
+//                textField_mazeRows.setLayoutY(borderPane.getHeight()/10);
+//                textField_mazeRows.setFont(new Font(textField_mazeRows.getFont().getName(), textFontSize.doubleValue()));
+//                playerCol.setLayoutY(borderPane.getHeight()/10);
+//                playerCol.setFont(new Font(playerCol.getFont().getName(), textFontSize.doubleValue()));
+//                playerRow.setLayoutY(borderPane.getHeight()/10);
+//                playerRow.setFont(new Font(playerRow.getFont().getName(), textFontSize.doubleValue()));
+//                generateBtn.setLayoutY(borderPane.getHeight()/10);
+//                generateBtn.setFont(new Font(generateBtn.getFont().getName(), textFontSize.doubleValue()));
+//                solveBtn.setLayoutY(borderPane.getHeight()/10);
+//                solveBtn.setFont(new Font(solveBtn.getFont().getName(), textFontSize.doubleValue()));
+//                clearBtn.setLayoutY(borderPane.getHeight()/10);
+//                clearBtn.setFont(new Font(clearBtn.getFont().getName(), textFontSize.doubleValue()));
+//                rowLabel.setLayoutY(borderPane.getHeight()/10);
+//                rowLabel.setFont(new Font(rowLabel.getFont().getName(), textFontSize.doubleValue()));
+//                colsLabel.setLayoutY(borderPane.getHeight()/10);
+//                colsLabel.setFont(new Font(colsLabel.getFont().getName(), textFontSize.doubleValue()));
 
             }
         });
@@ -476,24 +476,24 @@ public class MyViewController extends AView {
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
                // mazeDisplayer.setLayoutX(borderPane.getWidth()/10);
                 mainScrollPane.setLayoutX(borderPane.getWidth()/10);
-                textField_mazeColumns.setLayoutX(borderPane.getWidth()/10);
-                textField_mazeColumns.setFont(new Font(textField_mazeColumns.getFont().getName(), textFontSize.doubleValue()));
-                textField_mazeRows.setLayoutX(borderPane.getWidth()/10);
-                textField_mazeRows.setFont(new Font(textField_mazeRows.getFont().getName(), textFontSize.doubleValue()));
-                playerCol.setLayoutX(borderPane.getWidth()/10);
-                playerCol.setFont(new Font(playerCol.getFont().getName(), textFontSize.doubleValue()));
-                playerRow.setLayoutX(borderPane.getWidth()/10);
-                playerRow.setFont(new Font(playerRow.getFont().getName(), textFontSize.doubleValue()));
-                generateBtn.setLayoutX(borderPane.getWidth()/10);
-                generateBtn.setFont(new Font(generateBtn.getFont().getName(), textFontSize.doubleValue()));
-                solveBtn.setLayoutX(borderPane.getWidth()/10);
-                solveBtn.setFont(new Font(solveBtn.getFont().getName(), textFontSize.doubleValue()));
-                clearBtn.setLayoutX(borderPane.getWidth()/10);
-                clearBtn.setFont(new Font(clearBtn.getFont().getName(), textFontSize.doubleValue()));
-                rowLabel.setLayoutX(borderPane.getWidth()/10);
-                rowLabel.setFont(new Font(rowLabel.getFont().getName(), textFontSize.doubleValue()));
-                colsLabel.setLayoutX(borderPane.getWidth()/10);
-                colsLabel.setFont(new Font(colsLabel.getFont().getName(), textFontSize.doubleValue()));
+//                textField_mazeColumns.setLayoutX(borderPane.getWidth()/10);
+//                textField_mazeColumns.setFont(new Font(textField_mazeColumns.getFont().getName(), textFontSize.doubleValue()));
+//                textField_mazeRows.setLayoutX(borderPane.getWidth()/10);
+//                textField_mazeRows.setFont(new Font(textField_mazeRows.getFont().getName(), textFontSize.doubleValue()));
+//                playerCol.setLayoutX(borderPane.getWidth()/10);
+//                playerCol.setFont(new Font(playerCol.getFont().getName(), textFontSize.doubleValue()));
+//                playerRow.setLayoutX(borderPane.getWidth()/10);
+//                playerRow.setFont(new Font(playerRow.getFont().getName(), textFontSize.doubleValue()));
+//                generateBtn.setLayoutX(borderPane.getWidth()/10);
+//                generateBtn.setFont(new Font(generateBtn.getFont().getName(), textFontSize.doubleValue()));
+//                solveBtn.setLayoutX(borderPane.getWidth()/10);
+//                solveBtn.setFont(new Font(solveBtn.getFont().getName(), textFontSize.doubleValue()));
+//                clearBtn.setLayoutX(borderPane.getWidth()/10);
+//                clearBtn.setFont(new Font(clearBtn.getFont().getName(), textFontSize.doubleValue()));
+//                rowLabel.setLayoutX(borderPane.getWidth()/10);
+//                rowLabel.setFont(new Font(rowLabel.getFont().getName(), textFontSize.doubleValue()));
+//                colsLabel.setLayoutX(borderPane.getWidth()/10);
+//                colsLabel.setFont(new Font(colsLabel.getFont().getName(), textFontSize.doubleValue()));
             }
         });
     }
@@ -501,6 +501,8 @@ public class MyViewController extends AView {
     public void openSecondScene(ActionEvent actionEvent) {
         String fxmlPath = "../View/secondScene.fxml";
         String title = "Second Scene";
+        music.setMute(true);
+        music=null;
         Stage window = getStage(generateBtn);
         try {
             this.changeScene(window,title,fxmlPath);
