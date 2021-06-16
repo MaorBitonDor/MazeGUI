@@ -19,7 +19,7 @@
             <Image url="@../../resources/images/Slide1.JPG" />
          </image>
       </ImageView>
-      <MenuBar fx:id="menuBar" prefHeight="26.0" prefWidth="757.0" BorderPane.alignment="CENTER">
+      <MenuBar fx:id="menuBar" prefHeight="26.0" prefWidth="757.0" BorderPane.alignment="CENTER" stylesheets="/View/MainStyle.css" styleClass="root">
          <menus>
             <Menu id="help" mnemonicParsing="false" text="Help">
                <items>
@@ -35,7 +35,7 @@
       </MenuBar>
       <HBox layoutX="23.0" layoutY="140.0" prefHeight="100.0" prefWidth="482.0" spacing="20.0">
          <children>
-            <RadioButton fx:id="HalissiChar" mnemonicParsing="false" onAction="#halissiSelected">
+            <RadioButton fx:id="HalissiChar" styleClass="buttonStyle" stylesheets="@Properties.css" mnemonicParsing="false" onAction="#halissiSelected">
                <graphic>
                   <ImageView fx:id="halissi" fitHeight="81.0" fitWidth="77.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -44,7 +44,7 @@
                   </ImageView>
                </graphic>
             </RadioButton>
-            <RadioButton fx:id="JohnChar" mnemonicParsing="false" onAction="#johnSelected">
+            <RadioButton fx:id="JohnChar" styleClass="buttonStyle" stylesheets="@Properties.css" mnemonicParsing="false" onAction="#johnSelected">
                <graphic>
                   <ImageView fx:id="john" fitHeight="79.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -53,7 +53,7 @@
                   </ImageView>
                </graphic>
             </RadioButton>
-            <RadioButton fx:id="TyrionChar" mnemonicParsing="false" onAction="#tyrionSelected">
+            <RadioButton fx:id="TyrionChar" styleClass="buttonStyle" stylesheets="@Properties.css" mnemonicParsing="false" onAction="#tyrionSelected">
                <graphic>
                   <ImageView fx:id="tyrion" fitHeight="80.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -62,7 +62,7 @@
                   </ImageView>
                </graphic>
             </RadioButton>
-            <RadioButton fx:id="JoffreyChar" mnemonicParsing="false" onAction="#joeffreySelected">
+            <RadioButton fx:id="JoffreyChar" styleClass="buttonStyle" stylesheets="@Properties.css" mnemonicParsing="false" onAction="#joeffreySelected">
                <graphic>
                   <ImageView fx:id="joffrey" fitHeight="78.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -75,7 +75,7 @@
       </HBox>
       <HBox alignment="CENTER_LEFT" layoutX="23.0" layoutY="252.0" prefHeight="100.0" prefWidth="482.0" spacing="10.0">
          <children>
-            <RadioButton fx:id="castleWall" mnemonicParsing="false" onAction="#castleWallSelected">
+            <RadioButton fx:id="castleWall" styleClass="buttonStyle" stylesheets="@Properties.css" mnemonicParsing="false" onAction="#castleWallSelected">
                <graphic>
                   <ImageView fx:id="imageCastleWall" fitHeight="79.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -84,7 +84,7 @@
                   </ImageView>
                </graphic>
             </RadioButton>
-            <RadioButton fx:id="wall1" lineSpacing="10.0" mnemonicParsing="false" onAction="#wall1Selected" prefHeight="77.0" prefWidth="102.0">
+            <RadioButton fx:id="wall1" lineSpacing="10.0" styleClass="buttonStyle" stylesheets="@Properties.css" mnemonicParsing="false" onAction="#wall1Selected" prefHeight="77.0" prefWidth="102.0">
                <graphic>
                   <ImageView fx:id="wall1image" fitHeight="81.0" fitWidth="77.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -93,7 +93,7 @@
                   </ImageView>
                </graphic>
             </RadioButton>
-            <RadioButton fx:id="wall2" mnemonicParsing="false" onAction="#wall2Selected">
+            <RadioButton fx:id="wall2" mnemonicParsing="false" onAction="#wall2Selected" styleClass="buttonStyle" stylesheets="@Properties.css">
                <graphic>
                   <ImageView fx:id="wall2image" fitHeight="79.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
                      <image>

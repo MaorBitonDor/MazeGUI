@@ -135,8 +135,6 @@ public class MazeDisplayer extends Canvas {
     private void drawSolution(GraphicsContext graphicsContext, double cellHeight, double cellWidth) {
         ArrayList<AState> path = this.solution.getSolutionPath();
         graphicsContext.setFill(Color.TURQUOISE);
-        //cellHeight = cellHeight*delta;
-        //cellWidth = cellWidth*delta;
         Image solveImage = null;
         try{
             solveImage = new Image(new FileInputStream(getImageFileNameSolve()));
@@ -183,7 +181,6 @@ public class MazeDisplayer extends Canvas {
                 }
             }
         }
-        //todo change the goal point
         graphicsContext.setFill(Color.BLUE);
         Image goalImage = null;
         try{

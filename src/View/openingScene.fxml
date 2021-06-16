@@ -8,19 +8,19 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.OpeningSceneController">
+<AnchorPane fx:id="anchorPane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.OpeningSceneController" stylesheets="/View/MainStyle.css" styleClass="root">
    <children>
        <ImageView fx:id="image" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="false" />
 
 
-      <MenuBar fx:id="menuBar" prefHeight="26.0" prefWidth="600.0">
+      <MenuBar fx:id="menuBar" prefHeight="26.0" prefWidth="600.0" stylesheets="/View/MainStyle.css" styleClass="root">
         <menus>
-          <Menu id="help" mnemonicParsing="false" text="Help">
+          <Menu id="help" mnemonicParsing="false" text="Help" styleClass="root">
                <items>
                   <MenuItem fx:id="rules" mnemonicParsing="false" onAction="#openRules" text="Instructions" />
                </items>
           </Menu>
-          <Menu id="about" mnemonicParsing="false" text="About">
+          <Menu id="about" mnemonicParsing="false" text="About" styleClass="root">
                <items>
                    <MenuItem fx:id="Information" mnemonicParsing="false" onAction="#openAbout" text="Information" />
                </items>

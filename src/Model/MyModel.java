@@ -20,7 +20,7 @@ public class MyModel extends Observable implements IModel {
     private int[][] mazeArray;
     private int playerRow;
     private int playerCol;
-    private Solution solution;
+    private volatile Solution solution;
 
     @Override
     public void generateMaze(int rows, int cols) {
@@ -32,13 +32,10 @@ public class MyModel extends Observable implements IModel {
             clientGenerator.communicateWithServer();
             maze = generate.getMaze();
             if(maze==null){
-//            if(true){
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText("Maze failed to generate please try again");
                 alert.show();
-                //todo delete
-//                MyMazeGenerator myMazeGenerator = new MyMazeGenerator();
-//                maze = myMazeGenerator.generate(cols,rows);
+
                 return;
             }
             mazeArray = maze.getMaze();
@@ -137,14 +134,12 @@ public class MyModel extends Observable implements IModel {
             InetAddress serverIP = InetAddress.getLocalHost();
             ClientSolveStrategy solver = new ClientSolveStrategy(this.maze);
             Client clientSolver = new Client(serverIP, serverPort, solver);
-            clientSolver.communicateWithServer(); //todo change
-//            BestFirstSearch best = new BestFirstSearch();
+            clientSolver.communicateWithServer();
             this.solution = solver.getSolution();
-//            SearchableMaze searchableMaze = new SearchableMaze(maze);
-//            this.solution = best.solve(searchableMaze);
+
             if(solution == null){
                 Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setContentText("Couldn't solve this maze try again");
+                alert.setContentText("Couldn't solve this maze :( try again");
                 alert.show();
                 return;
             }
@@ -152,8 +147,9 @@ public class MyModel extends Observable implements IModel {
             notifyObservers("SOLVED");
         }
         catch (Exception e){
-            //todo alert box
-            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Could not solve your maze :(");
+            alert.show();
         }
     }
 

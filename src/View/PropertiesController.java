@@ -36,6 +36,9 @@ public class PropertiesController extends AView{
     public Button aboutSearch;
     public VBox vbox;
     public ImageView btnImage;
+    public ImageView threadsImg;
+    public ImageView generateImg;
+    public ImageView searchImg;
     private String searchAlgorithm;
     private String mazeGenerator;
     private  Configurations config;
@@ -114,6 +117,12 @@ public class PropertiesController extends AView{
         image.fitWidthProperty().bind(anchor.widthProperty());
         Image image = new Image(getClass().getResourceAsStream("/images/Properties.JPG"));
         this.image.setImage(image);
+        Image image1 = new Image(getClass().getResourceAsStream("/images/searchingAlg.png"));
+        this.searchImg.setImage(image1);
+        Image image2 = new Image(getClass().getResourceAsStream("/images/mazeGen.png"));
+        this.generateImg.setImage(image2);
+        Image image3 = new Image(getClass().getResourceAsStream("/images/threads.png"));
+        this.threadsImg.setImage(image3);
         Image img = new Image("/images/infobutton.png");
         ImageView view = new ImageView(img);
         ImageView view2 = new ImageView(img);
@@ -127,7 +136,7 @@ public class PropertiesController extends AView{
         aboutSearch.setGraphic(view2);
         Image imag = new Image("/images/propSubmitBtn.png");
         btnImage.setImage(imag);
-        btnImage.fitHeightProperty().bind(anchor.heightProperty().divide(2));
+        btnImage.fitHeightProperty().bind(anchor.heightProperty().divide(1.7));
         btnImage.fitWidthProperty().bind(anchor.widthProperty().divide(5.5));
     }
 
@@ -142,7 +151,7 @@ public class PropertiesController extends AView{
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
                 vbox.setLayoutY(anchor.getHeight()/2);
-                submitBtn.setLayoutY(anchor.getHeight()/2);
+                submitBtn.setLayoutY(anchor.getHeight()/1.7);
 
             }
         });

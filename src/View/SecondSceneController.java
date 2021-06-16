@@ -96,33 +96,40 @@ public class SecondSceneController extends AView{
         menuBar.prefWidthProperty().bind(pane.widthProperty());
         image.fitHeightProperty().bind(pane.heightProperty());
         image.fitWidthProperty().bind(pane.widthProperty());
-
         Image image = new Image(getClass().getResourceAsStream("/images/Slide1.JPG"));
         this.image.setImage(image);
+        halissi.fitHeightProperty().bind(pane.heightProperty().divide(6));
+        halissi.fitWidthProperty().bind(pane.widthProperty().divide(6));
         Image halissi = new Image(getClass().getResourceAsStream("/images/Picture1.png"));
         this.halissi.setImage(halissi);
+        john.fitHeightProperty().bind(pane.heightProperty().divide(6));
+        john.fitWidthProperty().bind(pane.widthProperty().divide(6));
         Image john = new Image(getClass().getResourceAsStream("/images/Picture3.png"));
         this.john.setImage(john);
+        tyrion.fitHeightProperty().bind(pane.heightProperty().divide(6));
+        tyrion.fitWidthProperty().bind(pane.widthProperty().divide(6));
         Image tyrion = new Image(getClass().getResourceAsStream("/images/Picture4.png"));
         this.tyrion.setImage(tyrion);
+        joffrey.fitHeightProperty().bind(pane.heightProperty().divide(6));
+        joffrey.fitWidthProperty().bind(pane.widthProperty().divide(6));
         Image joffrey = new Image(getClass().getResourceAsStream("/images/joffrey.png"));
         this.joffrey.setImage(joffrey);
+        wall1image.fitHeightProperty().bind(pane.heightProperty().divide(6));
+        wall1image.fitWidthProperty().bind(pane.widthProperty().divide(6));
         Image wall1image = new Image(getClass().getResourceAsStream("/images/icewall3.jpg"));
         this.wall1image.setImage(wall1image);
+        wall2image.fitHeightProperty().bind(pane.heightProperty().divide(6));
+        wall2image.fitWidthProperty().bind(pane.widthProperty().divide(6));
         Image wall2image = new Image(getClass().getResourceAsStream("/images/wall2.png"));
         this.wall2image.setImage(wall2image);
+        imageCastleWall.fitHeightProperty().bind(pane.heightProperty().divide(6));
+        imageCastleWall.fitWidthProperty().bind(pane.widthProperty().divide(6));
         Image imageCastleWall = new Image(getClass().getResourceAsStream("/images/castlewall.png"));
         this.imageCastleWall.setImage(imageCastleWall);
         Image img = new Image("/images/SUBMITBTN.png");
-
         btnImage.setImage(img);
-//        btnImage.setFitHeight(50);
-//        btnImage.setFitWidth(180);
         btnImage.fitHeightProperty().bind(pane.heightProperty().divide(2));
         btnImage.fitWidthProperty().bind(pane.widthProperty().divide(5.5));
-
-
-
         textFontSize.bind(generateBtn.heightProperty().divide(3));
     }
 

@@ -31,8 +31,8 @@ public class Main extends Application {
         Parent root = fxmlLoader.load();
         primaryStage.setTitle("Best Maze Game");
         Scene scene = new Scene(root, 900, 600);
+        scene.getStylesheets().add("/View/MainStyle.css");
         primaryStage.setScene(scene);
-        //todo add are you sure box
         primaryStage.setOnCloseRequest(event -> {
             Alert a = new Alert(Alert.AlertType.CONFIRMATION);
             a.setContentText("Are you sure you want to exit?");
@@ -40,7 +40,6 @@ public class Main extends Application {
             if(result.get() == ButtonType.OK){
                 solveSearchProblemServer.stop();
                 mazeGeneratingServer.stop();
-//                System.out.println("bye");
             }
             else{
                 event.consume();
