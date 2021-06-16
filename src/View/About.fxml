@@ -6,9 +6,9 @@
 
 <AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.AboutController">
    <children>
-      <ImageView fx:id="image" fitHeight="464.0" fitWidth="688.0" layoutX="-6.0" layoutY="-2.0" nodeOrientation="INHERIT">
+      <ImageView fx:id="image" fitHeight="500.0" fitWidth="700.0" nodeOrientation="INHERIT">
          <image>
-            <Image url="@../../resources/images/about.bmp" />
+            <Image url="@../../resources/images/about.JPG" />
          </image>
       </ImageView>
    </children>

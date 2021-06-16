@@ -56,7 +56,7 @@ public abstract class AView implements IView, Observer, Initializable{
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../View/Instructions.fxml"));
             Parent root1 = fxmlLoader.load();
             Stage stage = new Stage();
-            stage.setScene(new Scene(root1,700,500));
+            stage.setScene(new Scene(root1,800,500));
             stage.initModality(Modality.APPLICATION_MODAL);
 
             stage.sizeToScene();

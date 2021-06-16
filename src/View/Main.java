@@ -42,6 +42,9 @@ public class Main extends Application {
                 mazeGeneratingServer.stop();
 //                System.out.println("bye");
             }
+            else{
+                event.consume();
+            }
         });
         primaryStage.show();
 

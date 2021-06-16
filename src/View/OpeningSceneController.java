@@ -31,6 +31,7 @@ public class OpeningSceneController extends AView{
     public AnchorPane anchorPane;
     public MenuBar menuBar;
     public ImageView image;
+    public ImageView btnImage;
     private DoubleProperty textFontSize = new SimpleDoubleProperty();
 
     public void openSecondScene(ActionEvent actionEvent) {
@@ -59,9 +60,15 @@ public class OpeningSceneController extends AView{
         menuBar.prefWidthProperty().bind(anchorPane.widthProperty());
         image.fitHeightProperty().bind(anchorPane.heightProperty());
         image.fitWidthProperty().bind(anchorPane.widthProperty());
-        Image image = new Image(getClass().getResourceAsStream("/images/openning.BMP"));
+
+        Image image = new Image(getClass().getResourceAsStream("/images/openning.JPG"));
         this.image.setImage(image);
         textFontSize.bind(startBtn.heightProperty().divide(3));
+        Image img = new Image("/images/startbtn.png");
+        btnImage.setImage(img);
+
+        btnImage.fitHeightProperty().bind(anchorPane.heightProperty().divide(0.8));
+        btnImage.fitWidthProperty().bind(anchorPane.widthProperty().divide(4));
     }
 
     @Override
@@ -74,6 +81,7 @@ public class OpeningSceneController extends AView{
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
                 startBtn.setLayoutY(anchorPane.getHeight()/1.2);
+
                 startBtn.setFont(new Font(startBtn.getFont().getName(), textFontSize.doubleValue()));
 
             }

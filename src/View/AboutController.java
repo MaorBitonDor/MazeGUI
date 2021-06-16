@@ -36,7 +36,7 @@ public class AboutController extends AView{
     public void initialize(URL url, ResourceBundle resourceBundle) {
         image.fitHeightProperty().bind(anchorPane.heightProperty());
         image.fitWidthProperty().bind(anchorPane.widthProperty());
-        Image image = new Image(getClass().getResourceAsStream("/images/about.bmp"));
+        Image image = new Image(getClass().getResourceAsStream("/images/about.JPG"));
         this.image.setImage(image);
     }
 }

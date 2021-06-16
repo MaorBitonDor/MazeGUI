@@ -44,7 +44,7 @@ public class InstructionsController extends AView {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         image.fitHeightProperty().bind(borderPane.heightProperty());
         image.fitWidthProperty().bind(borderPane.widthProperty());
-        Image image = new Image(getClass().getResourceAsStream("/images/Instructions.BMP"));
+        Image image = new Image(getClass().getResourceAsStream("/images/Instructions.JPG"));
         this.image.setImage(image);
     }
 }

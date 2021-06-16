@@ -1,0 +1,9 @@
+.buttonStyle{
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
+}
+
+.submitButtonStyle{
+        -fx-background-color: moccasin;
+        -fx-opacity: 0.5;
+}

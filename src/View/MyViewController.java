@@ -17,13 +17,12 @@ import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.Region;
+import javafx.scene.layout.*;
 import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -66,10 +65,11 @@ public class MyViewController extends AView {
     public Label colsLabel;
     public ScrollPane mainScrollPane;
     public MenuItem saveBtn;
-    public AnchorPane anchorPane;
-    //public volatile boolean pressed;
+    //public AnchorPane anchorPane;
     public MediaPlayer music;
     public Button muteBtn;
+    public AnchorPane anchor;
+    //public ImageView image;
 
     StringProperty updatePlayerRow = new SimpleStringProperty();
     StringProperty updatePlayerCol = new SimpleStringProperty();
@@ -128,7 +128,12 @@ public class MyViewController extends AView {
             stage.setTitle("Congratulations!!!");
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.sizeToScene();
-            startStopMusic(new ActionEvent());
+            music.setMute(true);
+            muteBtn.setText("UnMute");
+            stage.setOnCloseRequest(event->{
+                music.setMute(false);
+                muteBtn.setText("Mute");
+            });
             stage.showAndWait();
         }
     }
@@ -139,19 +144,26 @@ public class MyViewController extends AView {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //music.play();
-        //AudioClip ac = new AudioClip(getClass().getResource("./resources/music/song.mp3").toString());
-        //ac.play();
         Media m = new Media(new File("./resources/music/song.mp3").toURI().toString());
         music = new MediaPlayer(m);
-//        music.setStartTime(Duration.seconds(0.5));
-//        music.setStopTime(Duration.seconds(60));
-//        music.setCycleCount(MediaPlayer.INDEFINITE);
+        music.setAutoPlay(true);
+        music.setCycleCount(MediaPlayer.INDEFINITE);
         music.play();
         music.setMute(false);
         muteBtn.setText("Mute");
+        //image.fitHeightProperty().bind(anchor.heightProperty());
+       // image.fitWidthProperty().bind(anchor.widthProperty());
+        //Image image = new Image(getClass().getResourceAsStream("/images/mainback.jpg"));
+        //this.image.setImage(image);
         mazeDisplayer.setImageFileNamePlayer(charImagePath);
         mazeDisplayer.setImageFileNameWall(wallImagePath);
+        //anchor.setBackground(Background.EMPTY);
+        //anchor.setStyle("-fx-background-color: transparent;");
+        //anchorPane.setStyle("-fx-background-color: transparent;");
+        //mainScrollPane.setStyle("-fx-background-color: transparent;");
+        ////mazeDisplayer.setStyle("-fx-background-color: transparent;");
+        //anchorPane.setBackground(Background.EMPTY);
+        //mainScrollPane.setBackground(Background.EMPTY);
         playerRow.textProperty().bind(updatePlayerRow);
         playerCol.textProperty().bind(updatePlayerCol);
         generateBtn.prefHeightProperty().bind(borderPane.heightProperty().divide(10));
@@ -181,7 +193,6 @@ public class MyViewController extends AView {
         rowLabel.prefWidthProperty().bind(borderPane.widthProperty().divide(3));
         colsLabel.prefHeightProperty().bind(borderPane.heightProperty().divide(10));
         colsLabel.prefWidthProperty().bind(borderPane.widthProperty().divide(3));
-
         textFontSize.bind(generateBtn.heightProperty().divide(3));
     }
 
@@ -296,7 +307,7 @@ public class MyViewController extends AView {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../View/Properties.fxml"));
             Parent root1 = fxmlLoader.load();
             Stage stage = new Stage();
-            stage.setScene(new Scene(root1));
+            stage.setScene(new Scene(root1,800,500));
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.sizeToScene();
             stage.showAndWait();
@@ -332,6 +343,7 @@ public class MyViewController extends AView {
             window.close();
 //                System.out.println("bye");
         }
+
     }
 
     public void clearSolution(ActionEvent actionEvent) {
@@ -414,33 +426,17 @@ public class MyViewController extends AView {
     }
 
 
-
     public void movePlayerDragging(MouseEvent mouseEvent) {
-        finishX = mouseEvent.getX();
-        finishY = mouseEvent.getY();
-        double row = startY/ mazeDisplayer.cellHeight;
-        double col = startX/ mazeDisplayer.cellWidth;
-        if(row>Integer.parseInt(playerRow.getText())+1 || row<Integer.parseInt(playerRow.getText())-1
-                || col>Integer.parseInt(playerCol.getText())+1 || col<Integer.parseInt(playerCol.getText())-1) {
-            return;
-        }
-        double deltaX = finishX - startX;
-        double deltaY = finishY - startY;
-        if (Math.abs(deltaX) > mazeDisplayer.cellWidth || Math.abs(deltaY) > mazeDisplayer.cellHeight)
-            viewModel.dragPlayer(mouseEvent, deltaX, deltaY);
-        mouseEvent.consume();
-    }
+        double mouseX = mouseEvent.getX();
+        double mouseY = mouseEvent.getY();
+        double x = mouseX/ mazeDisplayer.cellWidth;
+        double y = mouseY/ mazeDisplayer.cellHeight;
+        viewModel.dragPlayer(x,y);
 
-    public void mousePress(MouseEvent mouseEvent) {
-        startX = mouseEvent.getX();
-        startY = mouseEvent.getY();
-        //pressed=true;
 
     }
 
-    public void mouseReleased(MouseEvent mouseEvent) {
-        //pressed=false;
-    }
+
     @Override
     protected Region getBorderPane() {
         return borderPane;

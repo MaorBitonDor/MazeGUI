@@ -40,6 +40,7 @@ public class SecondSceneController extends AView{
     public ImageView wall2image;
     public RadioButton castleWall;
     public ImageView imageCastleWall;
+    public ImageView btnImage;
     private DoubleProperty textFontSize = new SimpleDoubleProperty();
 
     public void submit(ActionEvent actionEvent) {
@@ -91,11 +92,12 @@ public class SecondSceneController extends AView{
         wallImagePath=null;
         generateBtn.prefHeightProperty().bind(pane.heightProperty().divide(10));
         generateBtn.prefWidthProperty().bind(pane.widthProperty().divide(6));
-        generateBtn.relocate(200,500);
+        generateBtn.relocate(200,450);
         menuBar.prefWidthProperty().bind(pane.widthProperty());
         image.fitHeightProperty().bind(pane.heightProperty());
         image.fitWidthProperty().bind(pane.widthProperty());
-        Image image = new Image(getClass().getResourceAsStream("/images/Slide1.BMP"));
+
+        Image image = new Image(getClass().getResourceAsStream("/images/Slide1.JPG"));
         this.image.setImage(image);
         Image halissi = new Image(getClass().getResourceAsStream("/images/Picture1.png"));
         this.halissi.setImage(halissi);
@@ -111,6 +113,14 @@ public class SecondSceneController extends AView{
         this.wall2image.setImage(wall2image);
         Image imageCastleWall = new Image(getClass().getResourceAsStream("/images/castlewall.png"));
         this.imageCastleWall.setImage(imageCastleWall);
+        Image img = new Image("/images/SUBMITBTN.png");
+
+        btnImage.setImage(img);
+//        btnImage.setFitHeight(50);
+//        btnImage.setFitWidth(180);
+        btnImage.fitHeightProperty().bind(pane.heightProperty().divide(2));
+        btnImage.fitWidthProperty().bind(pane.widthProperty().divide(5.5));
+
 
 
         textFontSize.bind(generateBtn.heightProperty().divide(3));

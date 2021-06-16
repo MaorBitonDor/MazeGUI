@@ -66,27 +66,54 @@ public class MyViewModel extends Observable implements Observer {
         model.updatePlayerLocation(direction);
     }
 
-    public void dragPlayer(MouseEvent mouseEvent, double deltaX, double deltaY) {
+    public void dragPlayer(double x, double y) {
         //chanhe to new x and y
         MovementDirection direction = null;
-        double first = deltaX;
-        double second = deltaY;
-        if(Math.abs(deltaX)>Math.abs(deltaY)){
-            if(deltaX>0){
-                direction = MovementDirection.RIGHT;
-            }
-            else if(deltaX<0){
-                direction = MovementDirection.LEFT;
-            }
+        int playerRow = getPlayerRow();
+        int playerCol = getPlayerCol();
+        //UP
+        if (playerRow > y && y + 2 >= playerRow && playerCol<=x && playerCol+1>=x){
+            direction = MovementDirection.UP;
+            model.updatePlayerLocation(direction);
         }
-        else{
-            if(deltaY>0){
-                direction = MovementDirection.DOWN;
-            }
-            else if(deltaY<0){
-                direction = MovementDirection.UP;
-            }
+        //DOWN
+        if (playerRow+1 < y && y - 2 <= playerRow && playerCol<=x && playerCol+1>=x){
+            direction = MovementDirection.DOWN;
+            model.updatePlayerLocation(direction);
         }
-        model.updatePlayerLocation(direction);
+        //LEFT
+        if (playerRow+1 >= y && y >= playerRow && playerCol>x && playerCol<=x+2){
+            direction = MovementDirection.LEFT;
+            model.updatePlayerLocation(direction);
+        }
+        //RIGHT
+        if (playerRow+1 >= y && y >= playerRow && playerCol+1<x && playerCol>=x-2){
+            direction = MovementDirection.RIGHT;
+            model.updatePlayerLocation(direction);
+        }
+
     }
+//    public void dragPlayer(MouseEvent mouseEvent, double deltaX, double deltaY) {
+//        //chanhe to new x and y
+//        MovementDirection direction = null;
+//        double first = deltaX;
+//        double second = deltaY;
+//        if(Math.abs(deltaX)>Math.abs(deltaY)){
+//            if(deltaX>0){
+//                direction = MovementDirection.RIGHT;
+//            }
+//            else if(deltaX<0){
+//                direction = MovementDirection.LEFT;
+//            }
+//        }
+//        else{
+//            if(deltaY>0){
+//                direction = MovementDirection.DOWN;
+//            }
+//            else if(deltaY<0){
+//                direction = MovementDirection.UP;
+//            }
+//        }
+//        model.updatePlayerLocation(direction);
+//    }
 }

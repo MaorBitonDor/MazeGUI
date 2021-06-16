@@ -9,7 +9,7 @@
    <children>
       <ImageView fx:id="image" fitHeight="403.0" fitWidth="605.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="false" BorderPane.alignment="CENTER">
          <image>
-            <Image url="@../../resources/images/Instructions.BMP" />
+            <Image url="@../../resources/images/Instructions.JPG" />
          </image>
       </ImageView>
    </children>

@@ -16,7 +16,7 @@
    <children>
       <ImageView fx:id="image" fitHeight="454.0" fitWidth="782.0" layoutY="25.0" pickOnBounds="true" BorderPane.alignment="CENTER">
          <image>
-            <Image url="@../../resources/images/Slide1.BMP" />
+            <Image url="@../../resources/images/Slide1.JPG" />
          </image>
       </ImageView>
       <MenuBar fx:id="menuBar" prefHeight="26.0" prefWidth="757.0" BorderPane.alignment="CENTER">
@@ -105,10 +105,13 @@
          </children>
       </HBox>
 
-      <Button fx:id="generateBtn" alignment="CENTER" layoutX="79.0" layoutY="406.0" onAction="#submit" prefHeight="26.0" prefWidth="109.0" text="Submit" BorderPane.alignment="CENTER">
+      <Button fx:id="generateBtn" alignment="CENTER" layoutX="79.0" layoutY="406.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#submit" prefHeight="50.0" prefWidth="180.0" styleClass="buttonStyle" stylesheets="@Properties.css" BorderPane.alignment="CENTER">
          <font>
             <Font name="Segoe Print" size="18.0" />
          </font>
+         <graphic>
+            <ImageView fx:id="btnImage" fitHeight="40.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true" />
+         </graphic>
       </Button>
    </children>
 </AnchorPane>
