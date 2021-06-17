@@ -1,10 +1,10 @@
 package View;
 
+import Model.MyModel;
 import Server.Configurations;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -13,13 +13,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.Observable;
 import java.util.ResourceBundle;
@@ -56,51 +53,53 @@ public class PropertiesController extends AView{
             config.setSearchName(searchAlgorithm);
             config.setGeneratorName(mazeGenerator);
             config.setThreadsNum(Integer.valueOf(threadNum.getText()));
-
             Stage window = getStage(submitBtn);
+            MyModel.log.debug("Properties changed successfully");
             window.close();
-
         }
         catch(Exception e){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Could not change Properties please enter valid details");
-            alert.show();
+            popAlert(Alert.AlertType.ERROR,"Could not change Properties please enter valid details");
         }
     }
 
     @Override
     public void update(Observable o, Object arg) {
-
     }
 
     public void setGeneratorSimple(ActionEvent actionEvent) {
         mazeGenerator = "SimpleMazeGenerator";
         mazeGeneratorMenu.setText("Simple Maze Generator");
+        MyModel.log.debug("User changed maze generator to be Simple Maze Generator");
     }
 
     public void setGeneratorMy(ActionEvent actionEvent) {
         mazeGenerator = "MyMazeGenerator";
         mazeGeneratorMenu.setText("My Maze Generator");
+        MyModel.log.debug("User changed maze generator to be My Maze Generator");
     }
 
     public void setGeneratorEmpty(ActionEvent actionEvent) {
         mazeGenerator = "EmptyMazeGenerator";
         mazeGeneratorMenu.setText("Empty Maze Generator");
+        MyModel.log.debug("User changed maze generator to be Empty Maze Generator");
     }
 
     public void setSearchDFS(ActionEvent actionEvent) {
         searchAlgorithm = "DepthFirstSearch";
         searchAlgorithmMenu.setText("Depth First Search");
+        MyModel.log.debug("User changed searching algorithm to be Depth First Search");
     }
 
     public void setSearchBest(ActionEvent actionEvent) {
         searchAlgorithm = "BestFirstSearch";
         searchAlgorithmMenu.setText("Best First Search");
+        MyModel.log.debug("User changed searching algorithm to be Best First Search");
     }
 
     public void setSearchBFS(ActionEvent actionEvent) {
         searchAlgorithm = "BreadthFirstSearch";
         searchAlgorithmMenu.setText("Breadth First Search");
+        MyModel.log.debug("User changed searching algorithm to be Breadth First Search");
     }
 
     @Override
@@ -152,7 +151,7 @@ public class PropertiesController extends AView{
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
                 vbox.setLayoutY(anchor.getHeight()/2);
                 submitBtn.setLayoutY(anchor.getHeight()/1.7);
-
+                MyModel.log.debug("User changed scene height");
             }
         });
 
@@ -161,7 +160,7 @@ public class PropertiesController extends AView{
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
                 vbox.setLayoutX(anchor.getWidth()/2);
                 submitBtn.setLayoutX(anchor.getWidth()/5.5);
-
+                MyModel.log.debug("User changed scene width");
             }
         });
     }

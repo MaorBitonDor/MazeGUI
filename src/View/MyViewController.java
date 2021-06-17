@@ -2,6 +2,7 @@ package View;
 
 import IO.MyCompressorOutputStream;
 import IO.MyDecompressorInputStream;
+import Model.MyModel;
 import algorithms.mazeGenerators.Maze;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -12,23 +13,18 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
-import javafx.scene.layout.*;
-import javafx.scene.media.AudioClip;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.Region;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
-import javafx.scene.text.Font;
-import javafx.scene.transform.Scale;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -48,13 +44,8 @@ public class MyViewController extends AView {
     public Label playerRow;
     public Label playerCol;
     public BorderPane borderPane;
-
     public double borderPaneWidth;
     public double borderPaneHeight;
-    public double startX = -1;
-    public double startY = -1;
-    public double finishX = -1;
-    public double finishY = -1;
     public Button generateBtn;
     public ColumnConstraints grid;
     public Label playerColLabel;
@@ -66,16 +57,15 @@ public class MyViewController extends AView {
     public ScrollPane mainScrollPane;
     public MenuItem saveBtn;
     public AnchorPane anchorPane;
-    public MediaPlayer music;
+    public static MediaPlayer music;
     public Button muteBtn;
-    //public ImageView image;
-
-    StringProperty updatePlayerRow = new SimpleStringProperty();
-    StringProperty updatePlayerCol = new SimpleStringProperty();
+    public StringProperty updatePlayerRow = new SimpleStringProperty();
+    public StringProperty updatePlayerCol = new SimpleStringProperty();
     private DoubleProperty textFontSize = new SimpleDoubleProperty();
     private double originalHeight;
     private double originalWidth;
     private boolean firstGenerate = true;
+    private Media media;
 
     public String getUpdatePlayerRow() {
         return updatePlayerRow.get();
@@ -100,13 +90,14 @@ public class MyViewController extends AView {
             case "GENERATED" -> mazeGenerated();
             case "PLAYER MOVED" -> playerMoved();
             case "SOLVED" -> mazeSolved();
-            default -> System.out.println("Not implemented change: " + change);
+            default -> MyModel.log.info("Not implemented change: " + change);
         }
     }
 
     private void mazeSolved() {
         mazeDisplayer.setSolution(viewModel.getSolution());
         mazeDisplayer.draw();
+        MyModel.log.info("User asked for solution");
     }
 
     private void playerMoved() {
@@ -118,25 +109,39 @@ public class MyViewController extends AView {
         setUpdatePlayerRow(row);
         setUpdatePlayerCol(col);
         if(row==viewModel.getMaze().getGoalPosition().getRowIndex() && col==viewModel.getMaze().getGoalPosition().getColumnIndex()){
-            Media m = new Media(new File("./resources/video/video.mp4").toURI().toString());
-            MediaPlayer mp = new MediaPlayer(m);
-            MediaView mv = new MediaView(mp);
-            mp.setAutoPlay(true);
-            Group group = new Group();
-            group.getChildren().add(mv);
-            Scene s = new Scene(group,700,500);
-            Stage stage = new Stage();
-            stage.setScene(s);
-            stage.setTitle("Congratulations!!!");
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.sizeToScene();
-            music.setMute(true);
-            muteBtn.setText("UnMute");
-            stage.setOnCloseRequest(event->{
-                music.setMute(false);
-                muteBtn.setText("Mute");
-            });
-            stage.showAndWait();
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../View/finishScene.fxml"));
+                Parent root1 = fxmlLoader.load();
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root1,800,500));
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setTitle("Congratulations!!!");
+                stage.sizeToScene();
+                music.setMute(true);
+                muteBtn.setText("UnMute");
+                media = new Media(new File("./resources/music/RoyalFanfare.mp3").toURI().toString());
+                music = new MediaPlayer(media);
+                music.setStartTime(Duration.seconds(2.5));
+                music.play();
+                stage.setOnCloseRequest(event ->{
+                    music.setMute(true);
+                    Media m1 = new Media(new File("./resources/music/song.mp3").toURI().toString());
+                    music = new MediaPlayer(m1);
+                    music.setAutoPlay(true);
+                    music.setCycleCount(MediaPlayer.INDEFINITE);
+                    music.play();
+                    music.setMute(false);
+                    muteBtn.setText("Mute");;
+                    MyModel.log.debug("Main game music muted");
+                    MyModel.log.debug("Victory music started playing");
+                    stage.close();
+                    event.consume();
+                });
+                stage.showAndWait();
+                MyModel.log.info("User finished the maze at row "+row+ " and col "+col);
+            } catch (IOException e) {
+                MyModel.log.error("PLayer winning scene did not load");
+            }
         }
     }
 
@@ -146,20 +151,8 @@ public class MyViewController extends AView {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        //image.fitHeightProperty().bind(anchor.heightProperty());
-       // image.fitWidthProperty().bind(anchor.widthProperty());
-        //Image image = new Image(getClass().getResourceAsStream("/images/mainback.jpg"));
-        //this.image.setImage(image);
         mazeDisplayer.setImageFileNamePlayer(charImagePath);
         mazeDisplayer.setImageFileNameWall(wallImagePath);
-        //anchor.setBackground(Background.EMPTY);
-        //anchor.setStyle("-fx-background-color: transparent;");
-        //anchorPane.setStyle("-fx-background-color: transparent;");
-        //mainScrollPane.setStyle("-fx-background-color: transparent;");
-        ////mazeDisplayer.setStyle("-fx-background-color: transparent;");
-        //anchorPane.setBackground(Background.EMPTY);
-        //mainScrollPane.setBackground(Background.EMPTY);
         playerRow.textProperty().bind(updatePlayerRow);
         playerCol.textProperty().bind(updatePlayerCol);
         generateBtn.prefHeightProperty().bind(borderPane.heightProperty().divide(10));
@@ -192,8 +185,8 @@ public class MyViewController extends AView {
         colsLabel.prefHeightProperty().bind(borderPane.heightProperty().divide(10));
         colsLabel.prefWidthProperty().bind(borderPane.widthProperty().divide(3));
         textFontSize.bind(generateBtn.heightProperty().divide(3));
-        Media m = new Media(new File("./resources/music/song.mp3").toURI().toString());
-        music = new MediaPlayer(m);
+        media = new Media(new File("./resources/music/song.mp3").toURI().toString());
+        music = new MediaPlayer(media);
         music.setAutoPlay(true);
         music.setCycleCount(MediaPlayer.INDEFINITE);
         music.play();
@@ -222,7 +215,6 @@ public class MyViewController extends AView {
             String ColbyteStr = String.format("%8s", Integer.toBinaryString(dims[2] & 0xFF)).replace(' ', '0');
             ColbyteStr += String.format("%8s", Integer.toBinaryString(dims[3] & 0xFF)).replace(' ', '0');
             int Col = Integer.parseInt(ColbyteStr, 2);
-
             InputStream decompressor = new MyDecompressorInputStream(new FileInputStream(chosen.getAbsolutePath()));
             byte[] savedMazeBytes = new byte[Col*Rows+12];
             decompressor.read(savedMazeBytes);
@@ -230,13 +222,11 @@ public class MyViewController extends AView {
             mazeDisplayer.drawMaze(loadedMaze);
             setMaze(loadedMaze);
             in.close();
+            MyModel.log.debug("New maze was loaded from file: "+chosen.getAbsolutePath());
             decompressor.close();
-
-
         } catch (Exception e) {
-            e.printStackTrace();
+            MyModel.log.error("Loading file failed");
         }
-
     }
 
     public void keyPressed(KeyEvent keyEvent) {
@@ -261,37 +251,18 @@ public class MyViewController extends AView {
             this.borderPaneWidth = borderPane.getWidth();
             this.borderPaneHeight = borderPane.getHeight();
             solveBtn.setDisable(false);
+            clearBtn.setDisable(true);
             saveBtn.setDisable(false);
-
+            MyModel.log.info("New maze was generated in size of "+rows+"x"+cols);
         }
         catch(Exception e){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Invalid Row or Column Number, Please Insert a Number");
-            alert.show();
+            popAlert(Alert.AlertType.ERROR,"Invalid Row or Column Number, Please Insert a Number");
         }
     }
 
     public void solveMaze(ActionEvent actionEvent) {
         viewModel.solveMaze();
         clearBtn.setDisable(false);
-    }
-
-    public void newMaze(ActionEvent actionEvent) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../View/newMaze.fxml"));
-            Parent root1 = fxmlLoader.load();
-            AView newView = fxmlLoader.getController();
-            newView.setViewModel(viewModel);
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root1, 270, 100));
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.sizeToScene();
-            stage.showAndWait();
-        } catch(Exception e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Could not change scenes");
-            alert.show();
-        }
     }
 
     public void saveToFile(ActionEvent actionEvent) {
@@ -305,45 +276,49 @@ public class MyViewController extends AView {
             out.write(viewModel.getMaze().toByteArray());
             out.flush();
             out.close();
+            MyModel.log.debug("Maze saved to user computer in: "+chosen.getAbsolutePath());
         } catch (Exception e) {
-            e.printStackTrace();
+            popAlert(Alert.AlertType.ERROR,"Could not save the maze");
         }
     }
 
     public void openProperties(ActionEvent actionEvent) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../View/Properties.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Properties.fxml"));
             Parent root1 = fxmlLoader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root1,800,500));
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.sizeToScene();
+            MyModel.log.debug("Properties opened");
             stage.showAndWait();
+            MyModel.log.debug("Properties closed");
         } catch(Exception e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Could not change scenes");
-            alert.show();
+            popAlert(Alert.AlertType.ERROR,"Could not change scenes");;
         }
     }
 
     public void exitGame(ActionEvent actionEvent) {
         Alert a = new Alert(Alert.AlertType.CONFIRMATION);
         a.setContentText("Are you sure you want to exit?");
+        MyModel.log.debug("user asked to exit the game");
         Optional<ButtonType> result = a.showAndWait();
         if(result.get() == ButtonType.OK){
             Main.solveSearchProblemServer.stop();
+            MyModel.log.debug("Maze solver Server stopped");
             Main.mazeGeneratingServer.stop();
+            MyModel.log.debug("Maze generator Server stopped");
             Stage window = getStage(generateBtn);
+            MyModel.log.debug("user exit the game");
             window.close();
-//                System.out.println("bye");
         }
-
     }
 
     public void clearSolution(ActionEvent actionEvent) {
         mazeDisplayer.setSolution(null);
         mazeDisplayer.draw();
         clearBtn.setDisable(true);
+        MyModel.log.debug("User cleared the solution");
     }
 
     public void changeZoom(ScrollEvent scrollEvent) {
@@ -354,7 +329,7 @@ public class MyViewController extends AView {
                     try {
                         zoomInOut(event);
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        popAlert(Alert.AlertType.ERROR,"Could not zoom");
                     }
                 }
                 event.consume();
@@ -366,9 +341,7 @@ public class MyViewController extends AView {
         try{
             double height = mazeDisplayer.getHeight();
             double width = mazeDisplayer.getWidth();
-//            System.out.println(height);
-//            System.out.println(width);
-            double delta = 1.05;
+            double delta = 1.1;
             if (scrollEvent.getDeltaY() > 0)
             {
                 if(height>3500 || width>3500){
@@ -376,15 +349,17 @@ public class MyViewController extends AView {
                 }
                 mazeDisplayer.setHeight(mazeDisplayer.getHeight()*delta);
                 mazeDisplayer.setWidth(mazeDisplayer.getWidth()*delta);
+                MyModel.log.debug("User zoomed in");
             }
             else{
                 mazeDisplayer.setHeight(mazeDisplayer.getHeight()/delta);
                 mazeDisplayer.setWidth(mazeDisplayer.getWidth()/delta);
+                MyModel.log.debug("User zoomed out");
             }
             mazeDisplayer.draw();
         }
         catch(Exception e){
-            System.out.println("Reached the maximum zoom allowed!");
+            popAlert(Alert.AlertType.ERROR,"Could not zoom");
         }
     }
 
@@ -394,6 +369,7 @@ public class MyViewController extends AView {
         double x = mouseX/ mazeDisplayer.cellWidth;
         double y = mouseY/ mazeDisplayer.cellHeight;
         viewModel.dragPlayer(x,y);
+        MyModel.log.debug("User is dragging the player");
     }
 
     @Override
@@ -410,6 +386,7 @@ public class MyViewController extends AView {
                 mazeDisplayer.setHeight(Math.min(mainScrollPane.getWidth(),mainScrollPane.getHeight())-10);
                 mazeDisplayer.setWidth(Math.min(mainScrollPane.getWidth(),mainScrollPane.getHeight())-10);
                 mazeDisplayer.draw();
+                MyModel.log.debug("User changed the screen height");
             }
         });
 
@@ -420,6 +397,7 @@ public class MyViewController extends AView {
                 mazeDisplayer.setHeight(Math.min(mainScrollPane.getWidth(),mainScrollPane.getHeight())-10);
                 mazeDisplayer.setWidth(Math.min(mainScrollPane.getWidth(),mainScrollPane.getHeight())-10);
                 mazeDisplayer.draw();
+                MyModel.log.debug("User changed the screen width");
             }
         });
     }
@@ -428,29 +406,28 @@ public class MyViewController extends AView {
         String fxmlPath = "../View/secondScene.fxml";
         String title = "Second Scene";
         music.setMute(true);
-        music=null;
         Stage window = getStage(generateBtn);
         try {
             this.changeScene(window,title,fxmlPath);
+            MyModel.log.debug("User changed back to the theme choosing scene");
+            actionEvent.consume();
         } catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Could not change scenes");
-            alert.show();
+            popAlert(Alert.AlertType.ERROR,"Could not change scenes");
         }
     }
-
 
     public void startStopMusic(ActionEvent actionEvent) {
         if (music.isMute()){
             music.play();
             music.setMute(false);
             muteBtn.setText("Mute");
-
+            MyModel.log.debug("User unmuted the music");
         }
         else{
             music.stop();
             music.setMute(true);
             muteBtn.setText("UnMute");
+            MyModel.log.debug("User muted the music");
         }
     }
 }

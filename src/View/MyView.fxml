@@ -16,9 +16,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <?import View.*?>
-<BorderPane fx:id="borderPane" style="-fx-background-image: url(images/mainback2.JPG); -fx-background-size: cover;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
+<BorderPane fx:id="borderPane" style="-fx-background-image: url(images/mainback.JPG); -fx-background-size: cover;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
    <top>
         <VBox BorderPane.alignment="CENTER">
             <children>
@@ -26,7 +25,7 @@
                     <menus>
                         <Menu mnemonicParsing="false" text="File">
                             <items>
-                                <MenuItem mnemonicParsing="false" onAction="#newMaze" text="New" />
+                                <MenuItem mnemonicParsing="false" onAction="#generateMaze" text="New" />
                                 <MenuItem fx:id="saveBtn" mnemonicParsing="false" onAction="#saveToFile" text="Save" />
                         <MenuItem mnemonicParsing="false" onAction="#openFile" text="Load" />
                             </items>
@@ -157,7 +156,7 @@
                   <content>
                       <AnchorPane fx:id="anchorPane" BorderPane.alignment="CENTER">
                         <children>
-                            <MazeDisplayer fx:id="mazeDisplayer" height="400.0" width="400.0" imageFileNameGoal="./resources/images/throne.png" imageFileNamePlayer="./resources/images/Picture3.png" imageFileNameSolve="./resources/images/SOLVE.png" imageFileNameWall="./resources/images/icewall3.jpg" onKeyPressed="#keyPressed" onMouseDragged="#movePlayerDragging" BorderPane.alignment="CENTER"/>
+                            <MazeDisplayer fx:id="mazeDisplayer" height="400.0" imageFileNameGoal="./resources/images/throne.png" imageFileNamePlayer="./resources/images/Picture3.png" imageFileNameSolve="./resources/images/SOLVE.png" imageFileNameWall="./resources/images/icewall3.jpg" onKeyPressed="#keyPressed" onMouseDragged="#movePlayerDragging" width="400.0" BorderPane.alignment="CENTER" />
                         </children>
                       </AnchorPane>
                   </content>

@@ -7,7 +7,9 @@
     -fx-scale-x: 0.9 ;
     -fx-scale-y: 0.9 ;
 }
-
+.choice-box .menu-button{
+    -fx-background-color: #b57456;
+}
 .choice-box .context-menu {
     -fx-background-color: #b57456;
     -fx-font-family: "Segoe Print";
@@ -30,5 +32,7 @@
 }
 .choice-box > .label {
     -fx-text-fill: black;
-
+}
+.choice-box > .menu{
+    -fx-mark-color: #885c50;
 }

@@ -2,12 +2,11 @@ package Model;
 
 import Client.Client;
 import algorithms.mazeGenerators.Maze;
-import algorithms.mazeGenerators.MyMazeGenerator;
 import algorithms.mazeGenerators.Position;
-import algorithms.search.BestFirstSearch;
-import algorithms.search.SearchableMaze;
 import algorithms.search.Solution;
 import javafx.scene.control.Alert;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -20,7 +19,8 @@ public class MyModel extends Observable implements IModel {
     private int[][] mazeArray;
     private int playerRow;
     private int playerCol;
-    private volatile Solution solution;
+    private Solution solution;
+    public static final Logger log = LogManager.getLogger();
 
     @Override
     public void generateMaze(int rows, int cols) {
@@ -32,22 +32,21 @@ public class MyModel extends Observable implements IModel {
             clientGenerator.communicateWithServer();
             maze = generate.getMaze();
             if(maze==null){
+                log.error("Maze failed to generate please try again");
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText("Maze failed to generate please try again");
                 alert.show();
-
                 return;
             }
             mazeArray = maze.getMaze();
             setChanged();
             notifyObservers("GENERATED");
+            log.debug("Maze created successfully");
             // start position:
             Position position = maze.getStartPosition();
             movePlayer(position.getRowIndex(), position.getColumnIndex());
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
     }
 
@@ -63,7 +62,6 @@ public class MyModel extends Observable implements IModel {
         playerCol=maze.getStartPosition().getColumnIndex();
         playerRow=maze.getStartPosition().getRowIndex();
     }
-
 
     @Override
     public void updatePlayerLocation(MovementDirection direction) {
@@ -133,11 +131,12 @@ public class MyModel extends Observable implements IModel {
             int serverPort = 5401;
             InetAddress serverIP = InetAddress.getLocalHost();
             ClientSolveStrategy solver = new ClientSolveStrategy(this.maze);
+            log.debug("");
             Client clientSolver = new Client(serverIP, serverPort, solver);
             clientSolver.communicateWithServer();
             this.solution = solver.getSolution();
-
             if(solution == null){
+                log.error("Couldn't solve this maze");
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText("Couldn't solve this maze :( try again");
                 alert.show();
@@ -145,8 +144,10 @@ public class MyModel extends Observable implements IModel {
             }
             setChanged();
             notifyObservers("SOLVED");
+            log.debug("The maze solved by the server");
         }
         catch (Exception e){
+            log.error("Could not solve current maze");
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Could not solve your maze :(");
             alert.show();

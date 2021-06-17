@@ -5,6 +5,7 @@ import IO.MyDecompressorInputStream;
 import algorithms.mazeGenerators.Maze;
 
 import java.io.*;
+import java.net.InetAddress;
 
 public class ClientGenerateStrategy implements IClientStrategy {
     private Maze maze;
@@ -39,6 +40,7 @@ public class ClientGenerateStrategy implements IClientStrategy {
     @Override
     public void clientStrategy(InputStream inputStream, OutputStream outputStream) {
         try {
+            MyModel.log.debug("ClientGenerateStrategy: this client " + InetAddress.getLocalHost()+" connected to the server");
             ObjectOutputStream toServer = new ObjectOutputStream(outputStream);
             ObjectInputStream fromServer = new ObjectInputStream(inputStream);
             toServer.flush();
@@ -51,7 +53,7 @@ public class ClientGenerateStrategy implements IClientStrategy {
             is.read(decompressedMaze); //Fill decompressedMaze with bytes
             this.maze = new Maze(decompressedMaze);
         } catch (Exception e) {
-            e.printStackTrace();
+            MyModel.log.error("ClientGenerateStrategy: "+e.getMessage());
         }
     }
 }

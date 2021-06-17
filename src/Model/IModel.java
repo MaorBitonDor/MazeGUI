@@ -2,6 +2,7 @@ package Model;
 
 import algorithms.mazeGenerators.Maze;
 import algorithms.search.Solution;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Observer;
 

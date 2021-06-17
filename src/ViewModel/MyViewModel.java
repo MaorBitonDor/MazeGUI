@@ -5,7 +5,6 @@ import Model.MovementDirection;
 import algorithms.mazeGenerators.Maze;
 import algorithms.search.Solution;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -91,29 +90,5 @@ public class MyViewModel extends Observable implements Observer {
             direction = MovementDirection.RIGHT;
             model.updatePlayerLocation(direction);
         }
-
     }
-//    public void dragPlayer(MouseEvent mouseEvent, double deltaX, double deltaY) {
-//        //chanhe to new x and y
-//        MovementDirection direction = null;
-//        double first = deltaX;
-//        double second = deltaY;
-//        if(Math.abs(deltaX)>Math.abs(deltaY)){
-//            if(deltaX>0){
-//                direction = MovementDirection.RIGHT;
-//            }
-//            else if(deltaX<0){
-//                direction = MovementDirection.LEFT;
-//            }
-//        }
-//        else{
-//            if(deltaY>0){
-//                direction = MovementDirection.DOWN;
-//            }
-//            else if(deltaY<0){
-//                direction = MovementDirection.UP;
-//            }
-//        }
-//        model.updatePlayerLocation(direction);
-//    }
 }

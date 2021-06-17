@@ -5,41 +5,36 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.Observable;
 import java.util.ResourceBundle;
 
-public class InstructionsController extends AView {
-    public AnchorPane borderPane;
+public class finishSceneController extends AView {
     public ImageView image;
-
-    public ImageView getImage() {
-        return image;
-    }
-
-    public void setImage(ImageView image) {
-        this.image = image;
-    }
+    public AnchorPane anchor;
 
     @Override
     protected Region getBorderPane() {
-        return borderPane;
+        return null;
     }
 
     @Override
     public void resizeScene(Scene scene) {
+
     }
 
     @Override
     public void update(Observable o, Object arg) {
+
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        image.fitHeightProperty().bind(borderPane.heightProperty());
-        image.fitWidthProperty().bind(borderPane.widthProperty());
-        Image image = new Image(getClass().getResourceAsStream("/images/Instructions.JPG"));
+        image.fitHeightProperty().bind(anchor.heightProperty());
+        image.fitWidthProperty().bind(anchor.widthProperty());
+        Image image = new Image(getClass().getResourceAsStream(successImagePath));
         this.image.setImage(image);
     }
 }

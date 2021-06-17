@@ -1,5 +1,6 @@
 package View;
 
+import Model.MyModel;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
@@ -8,15 +9,12 @@ import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -40,10 +38,9 @@ public class OpeningSceneController extends AView{
         Stage window = getStage(startBtn);
         try {
             this.changeScene(window,title,fxmlPath);
+            MyModel.log.debug("Theme choosing scene opened successfully");
         } catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Could not change scenes");
-            alert.show();
+            popAlert(Alert.AlertType.ERROR,"Could not change scenes");
         }
     }
 
@@ -60,13 +57,11 @@ public class OpeningSceneController extends AView{
         menuBar.prefWidthProperty().bind(anchorPane.widthProperty());
         image.fitHeightProperty().bind(anchorPane.heightProperty());
         image.fitWidthProperty().bind(anchorPane.widthProperty());
-
         Image image = new Image(getClass().getResourceAsStream("/images/openning.JPG"));
         this.image.setImage(image);
         textFontSize.bind(startBtn.heightProperty().divide(3));
         Image img = new Image("/images/startbtn.png");
         btnImage.setImage(img);
-
         btnImage.fitHeightProperty().bind(anchorPane.heightProperty().divide(0.8));
         btnImage.fitWidthProperty().bind(anchorPane.widthProperty().divide(4));
     }
@@ -81,9 +76,8 @@ public class OpeningSceneController extends AView{
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
                 startBtn.setLayoutY(anchorPane.getHeight()/1.2);
-
                 startBtn.setFont(new Font(startBtn.getFont().getName(), textFontSize.doubleValue()));
-
+                MyModel.log.debug("User changed scene height");
             }
         });
 
@@ -92,7 +86,7 @@ public class OpeningSceneController extends AView{
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
                 startBtn.setLayoutX(anchorPane.getWidth()/4.5);
                 startBtn.setFont(new Font(startBtn.getFont().getName(), textFontSize.doubleValue()));
-
+                MyModel.log.debug("User changed scene width");
             }
         });
     }

@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="Properties.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.PropertiesController">
+<AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="/View/Properties.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.PropertiesController">
    <children>
        <ImageView fx:id="image" fitHeight="425.0" fitWidth="700.0" pickOnBounds="true" preserveRatio="false" BorderPane.alignment="CENTER">
            <image>
@@ -25,7 +25,7 @@
             <HBox alignment="CENTER" prefHeight="44.0" prefWidth="688.0" spacing="20.0">
                <children>
                   <ImageView fx:id="searchImg" fitHeight="115.0" fitWidth="328.0" pickOnBounds="true" preserveRatio="true" />
-                  <SplitMenuButton fx:id="searchAlgorithmMenu" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="32.0" prefWidth="250.0" styleClass="choice-box" stylesheets="@Properties.css" text="Searching Algorithm" textAlignment="CENTER">
+                  <SplitMenuButton fx:id="searchAlgorithmMenu" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="32.0" prefWidth="250.0" styleClass="choice-box" stylesheets="@/View/Properties.css" text="Searching Algorithm" textAlignment="CENTER">
                     <items>
                       <MenuItem mnemonicParsing="false" onAction="#setSearchDFS" text="DFS" />
                         <MenuItem mnemonicParsing="false" onAction="#setSearchBest" text="Best First Search" />
@@ -35,7 +35,7 @@
                         <Font name="Segoe Print" size="14.0" />
                      </font>
                   </SplitMenuButton>
-                  <Button fx:id="aboutSearch" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#openAboutSearch" prefHeight="51.0" prefWidth="63.0" styleClass="buttonStyle" stylesheets="@Properties.css">
+                  <Button fx:id="aboutSearch" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#openAboutSearch" prefHeight="51.0" prefWidth="63.0" styleClass="buttonStyle" stylesheets="@/View/Properties.css">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -51,7 +51,7 @@
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                <children>
                   <ImageView fx:id="generateImg" fitHeight="82.0" fitWidth="270.0" pickOnBounds="true" preserveRatio="true" />
-                     <SplitMenuButton fx:id="mazeGeneratorMenu" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="32.0" prefWidth="230.0" styleClass="choice-box" stylesheets="@Properties.css" text="Maze Generator">
+                     <SplitMenuButton fx:id="mazeGeneratorMenu" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="32.0" prefWidth="230.0" styleClass="choice-box" stylesheets="@/View/Properties.css" text="Maze Generator">
                          <items>
                              <MenuItem mnemonicParsing="false" onAction="#setGeneratorMy" text="My Maze Generator" />
                              <MenuItem mnemonicParsing="false" onAction="#setGeneratorSimple" text="Simple Maze Generator" />
@@ -61,7 +61,7 @@
                              <Font name="Segoe Print" size="14.0" />
                          </font>
                      </SplitMenuButton>
-                     <Button fx:id="aboutGenerators" mnemonicParsing="false" onAction="#openAboutGenerators" styleClass="buttonStyle" stylesheets="@Properties.css">
+                     <Button fx:id="aboutGenerators" mnemonicParsing="false" onAction="#openAboutGenerators" styleClass="buttonStyle" stylesheets="@/View/Properties.css">
                          <font>
                              <Font size="18.0" />
                          </font>
@@ -78,7 +78,7 @@
                   </TextField>
                </children>
             </HBox>
-            <Button fx:id="submitBtn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#changeProperties" prefHeight="60.0" prefWidth="180.0" styleClass="buttonStyle" stylesheets="@Properties.css" text="SUBMIT">
+            <Button fx:id="submitBtn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#changeProperties" prefHeight="60.0" prefWidth="180.0" styleClass="buttonStyle" stylesheets="@/View/Properties.css" text="SUBMIT">
                <font>
                   <Font name="Segoe Print Bold" size="18.0" />
                </font>

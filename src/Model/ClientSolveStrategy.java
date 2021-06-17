@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.net.InetAddress;
 
 public class ClientSolveStrategy implements IClientStrategy {
     private Maze maze;
@@ -34,6 +35,7 @@ public class ClientSolveStrategy implements IClientStrategy {
     @Override
     public void clientStrategy(InputStream inputStream, OutputStream outputStream) {
         try {
+            MyModel.log.debug("ClientSolveStrategy: this client " + InetAddress.getLocalHost()+" connected to the server");
             ObjectOutputStream toServer = new ObjectOutputStream(outputStream);
             ObjectInputStream fromServer = new ObjectInputStream(inputStream);
             toServer.flush();
@@ -42,7 +44,7 @@ public class ClientSolveStrategy implements IClientStrategy {
             solution = (Solution) fromServer.readObject(); //read generated maze (compressed withMyCompressor) from server
 
         } catch (Exception e) {
-            e.printStackTrace();
+            MyModel.log.error("ClientStrategy: "+e.getMessage());
         }
     }
 }
